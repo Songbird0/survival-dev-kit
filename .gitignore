@@ -1,4 +1,3 @@
 .idea*
 *.iml
-target/classes
-target/maven-status
+target/*
