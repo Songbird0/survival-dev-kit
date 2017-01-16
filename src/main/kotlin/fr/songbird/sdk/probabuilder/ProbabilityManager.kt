@@ -12,6 +12,9 @@ import java.util.*
  * le gestionnaire va différencier ces chaînes grâce à leur contenu.
  * Etant un système très générique, cette classe ne vous empêchera pas de le détourner: vous pouvez très bien soumettre
  * plusieurs fois la même chaîne, le service ne plantera pas, mais vous enverra quand même un warning si ce n'était pas voulu.
+ *
+ * @author songbird
+ * @since 12 janv., 2017
  * @param T Le type des items que la classe devra traiter.
  * **Note**: Le type passé à la classe `ProbabilityManager` doit être identique à celui de la classe `FavorableCase`,
  * sinon ça ne compilera pas.
