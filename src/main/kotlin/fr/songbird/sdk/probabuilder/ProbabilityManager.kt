@@ -21,7 +21,7 @@ import java.util.*
  * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
  * @constructor Initialise les objets censés représenter les cas favorables avec une limite de 100 cas potentiels par défaut.
  */
-class ProbabilityManager<T>(fav_case: ArrayList<FavorableCase<T>>)
+class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>)
 {
 
     private var  fav_case: ArrayList<FavorableCase<T>>
