@@ -12,13 +12,16 @@ import java.util.*
  * le gestionnaire va différencier ces chaînes grâce à leur contenu.
  * Etant un système très générique, cette classe ne vous empêchera pas de le détourner: vous pouvez très bien soumettre
  * plusieurs fois la même chaîne, le service ne plantera pas, mais vous enverra quand même un warning si ce n'était pas voulu.
+ *
+ * @author songbird
+ * @since 12 janv., 2017
  * @param T Le type des items que la classe devra traiter.
  * **Note**: Le type passé à la classe `ProbabilityManager` doit être identique à celui de la classe `FavorableCase`,
  * sinon ça ne compilera pas.
  * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
  * @constructor Initialise les objets censés représenter les cas favorables avec une limite de 100 cas potentiels par défaut.
  */
-class ProbabilityManager<T>(fav_case: ArrayList<FavorableCase<T>>)
+class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>)
 {
 
     private var  fav_case: ArrayList<FavorableCase<T>>
