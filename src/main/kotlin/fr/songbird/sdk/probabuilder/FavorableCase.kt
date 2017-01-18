@@ -1,5 +1,9 @@
 package fr.songbird.sdk.probabuilder
 
+import java.util.logging.Level
+import java.util.logging.Logger
+
+
 /**
  * Représente un objet de manière générique.
  * Tous les objets passés en paramètre à cette classe doivent obligatoirement implémenter le service equals()
@@ -52,12 +56,22 @@ package fr.songbird.sdk.probabuilder
  */
 class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_percentage: Int) {
 
+    /**
+     * Logger standalone de la classe, il ne devrait pas
+     * être utilisé ailleurs.
+     */
+    private val LOGGER : Logger = Logger.getLogger(FavorableCase::class.java.simpleName)
+      private get
+
     private var item_name : String? = null
-      get() = this.item_name
+      private set
 
     private val item : T = item
 
+    private var favorable_case_percentage : Int = 0
+
     init {
+        LOGGER.log(Level.INFO, "Construction de l'item.")
         val is_empty : Boolean? = item_name?.isEmpty()
         if(is_empty != null)
         {
@@ -65,6 +79,7 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
                 throw Exception("Vous avez renommé votre item, mais la chaîne de caractères est vide. " +
                         "\nRéglez le problème pour faire disparaître cette erreur.")
             }
+            LOGGER.log(Level.INFO, "L'item a été renommé $item_name.")
         }
 
         if(favorable_case_percentage < 0)
@@ -73,6 +88,18 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
         if(favorable_case_percentage == 0)
             throw Exception("Le pourcentage de cas favorables est nul. " +
                     "\nFixez le problème pour voir l'erreur disparaître.")
+        this.favorable_case_percentage = favorable_case_percentage
+        LOGGER.log(Level.INFO, "Aucun problème détecté lors de la construction de l'item $item_name.")
     }
 
+    /**
+     * Renvoi le nombre de cas favorables dédiés à cet item
+     * sous sa forme entière.
+     * La classe `FavorableCase` étant un composant du gestionnaire de probabilités,
+     * ce service donne la possibilité au système de questionner ses composants
+     * pour gérer l'espace alloué.
+     *
+     * @return Le nombre de cas favorables sous sa forme entière.
+     */
+    internal fun get_favorable_case_to_int(potential_case: Int) : Int = potential_case * this.favorable_case_percentage/100
 }
