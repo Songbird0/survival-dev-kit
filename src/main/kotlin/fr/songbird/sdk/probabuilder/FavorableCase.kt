@@ -98,17 +98,17 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
      * La classe `FavorableCase` étant un composant du gestionnaire de probabilités,
      * ce service donne la possibilité au système de questionner ses composants
      * pour gérer l'espace alloué.
+     * **Note**: Bien que ça soit possible, ce service n'est pas à utiliser en dehors du système de probabilités.
+     * La méthode n'est dédiée qu'à le servir, ne peut pas être override et l'utiliser en dehors de son champ d'action
+     * serait un non-sens total.
      *
      * @return Le nombre de cas favorables sous sa forme entière.
      */
     internal fun get_favorable_case_to_int(potential_case: Int) : Int {
         if(potential_case == favorable_case_percentage)
-        {
             throw Exception("Le nombre de cas favorables est équivalent au nombre de cas potentiels." +
                     "\nSi le nombre de cas favorables est équivalent au nombre de cas potentiels " +
                     "l'item sera forcément choisi lors du tirage au sort, inutile de passer par ces services donc.")
-        }
-
         if(potential_case < 0)
             throw Exception("Le nombre de cas potentiels est négatif, cette valeur appartient-elle vraiment au système de probabilités ?")
         if(potential_case == 0)
