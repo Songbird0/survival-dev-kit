@@ -101,5 +101,21 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
      *
      * @return Le nombre de cas favorables sous sa forme entière.
      */
-    internal fun get_favorable_case_to_int(potential_case: Int) : Int = potential_case * this.favorable_case_percentage/100
+    internal fun get_favorable_case_to_int(potential_case: Int) : Int {
+        if(potential_case == favorable_case_percentage)
+        {
+            throw Exception("Le nombre de cas favorables est équivalent au nombre de cas potentiels." +
+                    "\nSi le nombre de cas favorables est équivalent au nombre de cas potentiels " +
+                    "l'item sera forcément choisi lors du tirage au sort, inutile de passer par ces services donc.")
+        }
+
+        if(potential_case < 0)
+            throw Exception("Le nombre de cas potentiels est négatif, cette valeur appartient-elle vraiment au système de probabilités ?")
+        if(potential_case == 0)
+            throw Exception("Le nombre de cas potentiels est nul, cette valeur appartient-elle vraiment au système de probabilités ?")
+        if(potential_case == 1)
+            throw Exception("Le nombre de cas potentiels offre un tirage au sort certain(égal à 1), cette valeur appartient-elle vraiment au système de probabilités ?")
+
+        return potential_case * this.favorable_case_percentage/100
+    }
 }
