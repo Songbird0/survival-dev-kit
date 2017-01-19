@@ -137,4 +137,25 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
 
         return potential_case * this.favorable_case_percentage/100
     }
+
+    /**
+     *
+     */
+    @Override
+    fun clone() : FavorableCase<T> = FavorableCase(this.item_name, this.item, this.favorable_case_percentage)
+
+    /**
+     *
+     */
+    @Override
+    fun equals(an_object: FavorableCase<T>) : Boolean
+    {
+        if(this == an_object)
+            return true
+        if(this.item_name == an_object.item_name)
+            return true
+        if(this.item == an_object.item)
+            return true
+        return false
+    }
 }
