@@ -20,6 +20,8 @@
 package fr.songbird.sdk.probabuilder
 
 import java.util.*
+import java.util.logging.Level
+import java.util.logging.Logger
 
 /**
  * Le gestionnaire de probabilités permet d'établir le nombre de cas
@@ -42,6 +44,8 @@ import java.util.*
  */
 class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>)
 {
+
+    private val LOGGER : Logger = Logger.getLogger(ProbabilityManager::class.java.simpleName)
 
     private var  fav_case: ArrayList<FavorableCase<T>>
     /**
