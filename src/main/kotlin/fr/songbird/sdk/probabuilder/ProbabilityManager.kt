@@ -66,7 +66,7 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
      * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
      * @param potential_case Le nombre de cas potentiels.
      */
-    constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int): this(fav_case){
+    @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int): this(fav_case){
         if(potential_case < 0)
             throw Exception("Le nombre de cas potentiels est négatif.")
         if(potential_case == 0)
