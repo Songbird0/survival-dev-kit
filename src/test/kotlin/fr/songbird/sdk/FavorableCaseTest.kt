@@ -96,4 +96,12 @@ class FavorableCaseTest {
         val f : FavorableCase<String> = FavorableCase("my awesome item", "item content", 100)
         val favorable_case_to_int : Int = f.get_favorable_case_to_int(100)
     }
+
+    @Test
+    fun cloned_object_test()
+    {
+        val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
+        val bar = foo.clone()
+        assert(foo != bar, {"foo est égal à bar, ce n'est pas normal."})
+    }
 }
