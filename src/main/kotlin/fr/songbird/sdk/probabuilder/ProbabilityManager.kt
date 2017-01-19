@@ -1,6 +1,6 @@
 /*
  *    SurvivalDevKit, descendante de la bibliothèque utilitaire TheBareMinimum, mais en moins crade. :)
- *     Copyright (C) 2016  Defranceschi Anthony
+ *     Copyright (C) 2017  Defranceschi Anthony
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
