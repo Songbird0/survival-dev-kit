@@ -1,3 +1,22 @@
+/*
+ *    SurvivalDevKit, descendante de la bibliothèque utilitaire TheBareMinimum, mais en moins crade. :)
+ *     Copyright (C) 2016  Defranceschi Anthony
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *     If you need more information, feel free to contact me at chaacygg[at]gmail[dot]com.
+ */
 package fr.songbird.sdk.probabuilder
 
 import java.util.logging.Level
@@ -98,8 +117,45 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
      * La classe `FavorableCase` étant un composant du gestionnaire de probabilités,
      * ce service donne la possibilité au système de questionner ses composants
      * pour gérer l'espace alloué.
+     * **Note**: Bien que ça soit possible, ce service n'est pas à utiliser en dehors du système de probabilités.
+     * La méthode n'est dédiée qu'à le servir, ne peut pas être override et l'utiliser en dehors de son champ d'action
+     * serait un non-sens total.
      *
      * @return Le nombre de cas favorables sous sa forme entière.
      */
-    internal fun get_favorable_case_to_int(potential_case: Int) : Int = potential_case * this.favorable_case_percentage/100
+    internal fun get_favorable_case_to_int(potential_case: Int) : Int {
+        if(potential_case == favorable_case_percentage)
+            throw Exception("Le nombre de cas favorables est équivalent au nombre de cas potentiels." +
+                    "\nSi le nombre de cas favorables est équivalent au nombre de cas potentiels " +
+                    "l'item sera forcément choisi lors du tirage au sort, inutile de passer par ces services donc.")
+        if(potential_case < 0)
+            throw Exception("Le nombre de cas potentiels est négatif, cette valeur appartient-elle vraiment au système de probabilités ?")
+        if(potential_case == 0)
+            throw Exception("Le nombre de cas potentiels est nul, cette valeur appartient-elle vraiment au système de probabilités ?")
+        if(potential_case == 1)
+            throw Exception("Le nombre de cas potentiels offre un tirage au sort certain(égal à 1), cette valeur appartient-elle vraiment au système de probabilités ?")
+
+        return potential_case * this.favorable_case_percentage/100
+    }
+
+    /**
+     *
+     */
+    @Override
+    fun clone() : FavorableCase<T> = FavorableCase(this.item_name, this.item, this.favorable_case_percentage)
+
+    /**
+     *
+     */
+    @Override
+    fun equals(an_object: FavorableCase<T>) : Boolean
+    {
+        if(this == an_object)
+            return true
+        if(this.item_name == an_object.item_name)
+            return true
+        if(this.item == an_object.item)
+            return true
+        return false
+    }
 }
