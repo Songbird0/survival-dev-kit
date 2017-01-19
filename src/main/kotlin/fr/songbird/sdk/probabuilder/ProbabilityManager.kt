@@ -76,6 +76,25 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
         this.potential_case = potential_case
     }
 
+    /**
+     * Sert la taille de la liste des items en fonctionne du nombre de cas potentiels.
+     * Pas utile de l'utiliser seule.
+     * @return La taille que devrait avoir la liste qui stockera les items.
+     */
+    private fun get_items_list_size() : Int = potential_case
+
+    /**
+     * Encapsule la méthode `get_items_list_size` pour renvoyer une instance
+     * de la classe ArrayList avec une taille adaptée.
+     * @return Un tableau d'items avec une taille adaptée au nombre de cas potentiels.
+     */
+    private fun init_items_list_size() : ArrayList<T> = ArrayList(get_items_list_size())
+
+    private fun init_items_list_content() : ArrayList<T>
+    {
+        val items_list = init_items_list_content()
+
+    }
 
 
 }
