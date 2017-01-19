@@ -92,9 +92,9 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
      * de la classe ArrayList avec une taille adaptée.
      * @return Un tableau d'items avec une taille adaptée au nombre de cas potentiels.
      */
-    private fun init_items_list_size() : ArrayList<T> = ArrayList(get_items_list_size())
+    private fun init_items_list_size() : ArrayList<FavorableCase<T>> = ArrayList(get_items_list_size())
 
-    private fun init_items_list_content() : ArrayList<T>
+    private fun init_items_list_content() : ArrayList<FavorableCase<T>>
     {
         val items_list = init_items_list_content()
 
