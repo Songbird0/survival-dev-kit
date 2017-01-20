@@ -157,5 +157,27 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
         return favorable_case_sum
     }
 
+    /**
+     * Tire au sort un pseudo-aléatoire pour sélectionner
+     * un item.
+     * @return L'instance d'un item [FavorableCase] tiré au sort.
+     */
+    fun fire_random_item() : FavorableCase<T>
+    {
+        val items_list: ArrayList<FavorableCase<T>> = init_items_list_content()
+        val random: Random = Random()
+        if(favorable_case_sum_smaller_than_default_potential_case)
+        {
+            /**
+             * Si la somme de tous les cas favorables n'est pas égale au nombre de cas
+             * potentiels prévus au départ, selon les conditions des tests imposées dans les autres
+             * méthodes, on récupère la somme puis on établi de nouveau la limite avant le tirage au sort.
+             */
+            val favorable_case_sum = get_favorable_case_sum()
+            return items_list[random.nextInt(favorable_case_sum)]
+        }
+        return items_list[random.nextInt(100)]
+    }
+
 
 }
