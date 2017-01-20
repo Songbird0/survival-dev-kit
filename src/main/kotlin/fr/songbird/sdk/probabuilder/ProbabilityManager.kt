@@ -50,6 +50,15 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 
     private val LOGGER : Logger = Logger.getLogger(ProbabilityManager::class.java.simpleName)
 
+    /**
+     * Comporte uniquement les items qui vont être dupliqués dans la méthode
+     * `fire_random_item()`.
+     * Chaque item se retrouvant dans cette liste dans un premier temps
+     * est représenté à l'unité, aucun doublon ne devrait exister.
+     * Toutefois, pour garder une certaine souplesse, le système vous permettra quand même
+     * d'intégrer des doublons dans votre liste, vous préviendra d'un warning, mais cela reste peu
+     * recommandable puisque source de bug.
+     */
     private var  fav_case: ArrayList<FavorableCase<T>>
     /**
      * Le nombre de cas possibles/potentiels par défaut.
