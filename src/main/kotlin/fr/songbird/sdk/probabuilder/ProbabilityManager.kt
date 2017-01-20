@@ -29,7 +29,7 @@ import java.util.logging.Logger
  *
  * **Note**: Comme expliqué dans la documentation dédié au paramètre type `T`, une instance
  * de la classe `ProbabilityManager` ne peut gérer qu'un seul type d'objets à la fois.
- * De ce fait, si vous créez une instance de la classe avec pour type `T` des objets de la classe `String`
+ * De ce fait, si vous créez une instance de la classe avec pour type `T` des objets de la classe [String]
  * le gestionnaire va différencier ces chaînes grâce à leur contenu.
  * Etant un système très générique, cette classe ne vous empêchera pas de le détourner: vous pouvez très bien soumettre
  * plusieurs fois la même chaîne, le service ne plantera pas, mais vous enverra quand même un warning si ce n'était pas voulu.
@@ -37,7 +37,7 @@ import java.util.logging.Logger
  * @author songbird
  * @since 12 janv., 2017
  * @param T Le type des items que la classe devra traiter.
- * **Note**: Le type passé à la classe `ProbabilityManager` doit être identique à celui de la classe `FavorableCase`,
+ * **Note**: Le type passé à la classe `ProbabilityManager` doit être identique à celui de la classe [FavorableCase],
  * sinon ça ne compilera pas.
  * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
  * @constructor Initialise les objets censés représenter les cas favorables avec une limite de 100 cas potentiels par défaut.
