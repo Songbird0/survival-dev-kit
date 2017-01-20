@@ -111,9 +111,11 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
         if(favorable_case_sum > potential_case)
             throw Exception("Erreur sémantique: La somme des cas favorables est plus élevée que le nombre de cas potentiels." +
                     "\nSomme de tous les cas favorables est égal à $favorable_case_sum alors qu'il y a $potential_case cas potentiels.")
-        if(favorable_case_sum < potential_case)
+        if(favorable_case_sum < potential_case) {
             LOGGER.log(Level.WARNING, "La somme des cas favorables n'est pas égal au nombre de cas potentiels, vous pouvez encore remplir votre liste." +
                     "\nSomme de tous les cas favorables est égal à $favorable_case_sum alors qu'il y a $potential_case cas potentiels.")
+            favorable_case_sum_smaller_than_default_potential_case = true
+        }
         /**
          * Numérote les items pour les identifier
          * dans les logs.
