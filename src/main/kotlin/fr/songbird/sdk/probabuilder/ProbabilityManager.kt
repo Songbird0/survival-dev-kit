@@ -29,7 +29,7 @@ import java.util.logging.Logger
  *
  * **Note**: Comme expliqué dans la documentation dédié au paramètre type `T`, une instance
  * de la classe `ProbabilityManager` ne peut gérer qu'un seul type d'objets à la fois.
- * De ce fait, si vous créez une instance de la classe avec pour type `T` des objets de la classe `String`
+ * De ce fait, si vous créez une instance de la classe avec pour type `T` des objets de la classe [String]
  * le gestionnaire va différencier ces chaînes grâce à leur contenu.
  * Etant un système très générique, cette classe ne vous empêchera pas de le détourner: vous pouvez très bien soumettre
  * plusieurs fois la même chaîne, le service ne plantera pas, mais vous enverra quand même un warning si ce n'était pas voulu.
@@ -37,7 +37,7 @@ import java.util.logging.Logger
  * @author songbird
  * @since 12 janv., 2017
  * @param T Le type des items que la classe devra traiter.
- * **Note**: Le type passé à la classe `ProbabilityManager` doit être identique à celui de la classe `FavorableCase`,
+ * **Note**: Le type passé à la classe `ProbabilityManager` doit être identique à celui de la classe [FavorableCase],
  * sinon ça ne compilera pas.
  * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
  * @constructor Initialise les objets censés représenter les cas favorables avec une limite de 100 cas potentiels par défaut.
@@ -50,11 +50,26 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 
     private val LOGGER : Logger = Logger.getLogger(ProbabilityManager::class.java.simpleName)
 
+    /**
+     * Comporte uniquement les items qui vont être dupliqués dans la méthode
+     * `fire_random_item()`.
+     * Chaque item se retrouvant dans cette liste dans un premier temps
+     * est représenté à l'unité, aucun doublon ne devrait exister.
+     * Toutefois, pour garder une certaine souplesse, le système vous permettra quand même
+     * d'intégrer des doublons dans votre liste, vous préviendra d'un warning, mais cela reste peu
+     * recommandable puisque source de bug.
+     */
     private var  fav_case: ArrayList<FavorableCase<T>>
     /**
      * Le nombre de cas possibles/potentiels par défaut.
      */
     private var  potential_case: Int
+
+    /**
+     * On part du principe que le nombre de cas favorable n'est jamais plus petit que
+     * le nombre de cas potentiels, jusqu'à la preuve du contraire.
+     */
+    private var favorable_case_sum_smaller_than_default_potential_case = false
 
     init {
         if(fav_case.isEmpty())
@@ -84,21 +99,23 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 
     /**
      * Encapsule la méthode `get_items_list_size` pour renvoyer une instance
-     * de la classe ArrayList avec une taille adaptée.
+     * de la classe [ArrayList] avec une taille adaptée.
      * @return Un tableau d'items avec une taille adaptée au nombre de cas potentiels.
      */
     private fun init_items_list_size() : ArrayList<FavorableCase<T>> = ArrayList(get_items_list_size())
 
     private fun init_items_list_content() : ArrayList<FavorableCase<T>>
     {
-        val items_list = init_items_list_content()
+        val items_list = init_items_list_size()
         val favorable_case_sum : Int = get_favorable_case_sum()
         if(favorable_case_sum > potential_case)
             throw Exception("Erreur sémantique: La somme des cas favorables est plus élevée que le nombre de cas potentiels." +
                     "\nSomme de tous les cas favorables est égal à $favorable_case_sum alors qu'il y a $potential_case cas potentiels.")
-        if(favorable_case_sum < potential_case)
+        if(favorable_case_sum < potential_case) {
             LOGGER.log(Level.WARNING, "La somme des cas favorables n'est pas égal au nombre de cas potentiels, vous pouvez encore remplir votre liste." +
                     "\nSomme de tous les cas favorables est égal à $favorable_case_sum alors qu'il y a $potential_case cas potentiels.")
+            favorable_case_sum_smaller_than_default_potential_case = true
+        }
         /**
          * Numérote les items pour les identifier
          * dans les logs.
@@ -138,6 +155,28 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
             it -> favorable_case_sum += it.get_favorable_case_to_int(potential_case)
         }
         return favorable_case_sum
+    }
+
+    /**
+     * Tire au sort un pseudo-aléatoire pour sélectionner
+     * un item.
+     * @return L'instance d'un item [FavorableCase] tiré au sort.
+     */
+    fun fire_random_item() : FavorableCase<T>
+    {
+        val items_list: ArrayList<FavorableCase<T>> = init_items_list_content()
+        val random: Random = Random()
+        if(favorable_case_sum_smaller_than_default_potential_case)
+        {
+            /**
+             * Si la somme de tous les cas favorables n'est pas égale au nombre de cas
+             * potentiels prévus au départ, selon les conditions des tests imposées dans les autres
+             * méthodes, on récupère la somme puis on établi de nouveau la limite avant le tirage au sort.
+             */
+            val favorable_case_sum = get_favorable_case_sum()
+            return items_list[random.nextInt(favorable_case_sum)]
+        }
+        return items_list[random.nextInt(100)]
     }
 
 

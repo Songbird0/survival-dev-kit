@@ -25,26 +25,6 @@ import java.util.logging.Logger
 
 /**
  * Représente un objet de manière générique.
- * Tous les objets passés en paramètre à cette classe doivent obligatoirement implémenter le service equals()
- * pour fonctionner correctement.
- * Si vous utilisez des classes personnalisées lorsque vous faites appel aux services du gestionnaire
- * de probabilités, prévoyez d'adapter l'implémentation de la méthode `equals()` en conséquence.
- * Exemple:
- *
- * ```
- * class Foo
- * {
- *     @Override
- *     public boolean equals(Foo foo)
- *     {
- *         if(foo.getId() == this.getId())
- *             return true;
- *         return false;
- *     }
- * }
- * ```
- *
- * Prenez bien garde à ceci car le système ne vous le rappelera pas.
  *
  * @author songbird
  * @since 12 janv., 2017
@@ -59,7 +39,7 @@ import java.util.logging.Logger
  * ```
  * val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
  * val bar : FavorableCase<String> = FavorableCase("another item", "item content", 10)
- * val equality_success = foo.item_name.equals(bar.item_name) // return false
+ * val equality_success = foo.equals(bar) // return false
  * ```
  *
  * Vous remarquerez que l'on compare bien le *nom de l'item* plutôt que son contenu, mais le système parvient

@@ -33,12 +33,67 @@ import java.util.ArrayList
  */
 class ProbabilityManagerTest {
 
+    class Foo(private val first_name: String, private val last_name: String, private val age: Int)
+    {
+
+        fun say_hello() : Unit
+        {
+            println("Hi, I'm $first_name $last_name, and I'm $age years old.")
+        }
+    }
+
     private var fav_case_list : ArrayList<FavorableCase<String>> = ArrayList()
 
     @Before
     fun init_properties()
     {
         fav_case_list = ArrayList(200)
+    }
+
+    @Test
+    fun fire_random_item_test()
+    {
+        /**
+         * On initialise les ressources que l'ont souhaite
+         * tirer au sort.
+         */
+        val author: Foo = Foo("Song", "Bird", 18)
+        val a_guy: Foo = Foo("John", "Doe", 40)
+        val another_guy: Foo = Foo("Novelastre", "faiseur d'Eternité", 20)
+        /**
+         * On créé un wrapper pour chacune d'entre-elles.
+         * Notez d'ailleurs que, dans ce contexte, chacun des items aura
+         * 10% de chances d'être tiré au sort.
+         */
+        val author_wrapper = FavorableCase("author_wrapper", author, 10)
+        val a_guy_wrapper = FavorableCase("a_guy_wrapper", a_guy, 10)
+        val another_guy_wrapper = FavorableCase("another_guy_wrapper", another_guy, 10)
+        /**
+         * On ajoute les wrappers dans une liste prête à être
+         * passée en paramètre au gestionnaire de probabilités.
+         */
+        val members_list: ArrayList<FavorableCase<Foo>> = arrayListOf(author_wrapper, a_guy_wrapper, another_guy_wrapper)
+
+        /**
+         * Si le nombre de cas potentiels n'est pas
+         * précisé par l'utilisateur, le gestionnaire assumera
+         * que le calcul s'effectuera sur 100 cas.
+         * Techniquement, chacun des wrappers initialisés précédemment devraient donc réserver
+         * 10 cas respectivement.
+         *
+         * Note: Effectivement, si 3 wrappers réservent 10% respectivement, nous n'opérons plus sur
+         * 100 cas potentiels, mais bien 30. Ce n'est pas un problème, le gestionnaire
+         * fait abstraction de ce qui n'a pas été ajouté.
+         */
+        val probability_manager: ProbabilityManager<Foo> = ProbabilityManager(members_list)
+
+        val foo_item_fired_1: FavorableCase<Foo> = probability_manager.fire_random_item()
+        foo_item_fired_1.getItemRef().say_hello()
+        val foo_item_fired_2: FavorableCase<Foo> = probability_manager.fire_random_item()
+        foo_item_fired_2.getItemRef().say_hello()
+        val foo_item_fired_3: FavorableCase<Foo> = probability_manager.fire_random_item()
+        foo_item_fired_3.getItemRef().say_hello()
+
     }
 
 
