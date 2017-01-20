@@ -85,7 +85,12 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
     private var item_name : String? = null
       private set
 
-    private val item : T = item
+    private var item : T = item
+      private set(value)
+      {
+          if(value != null && item == null)
+              field = value
+      }
 
     private var favorable_case_percentage : Int = 0
 
