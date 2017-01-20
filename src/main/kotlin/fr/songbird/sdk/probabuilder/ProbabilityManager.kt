@@ -115,7 +115,7 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
             val current_favorable_case_to_int = favorable_case.get_favorable_case_to_int(potential_case)
             while(iterations < current_favorable_case_to_int)
             {
-                items_list.add(favorable_case.clone())
+                items_list.add(favorable_case.copy())
                 iterations++
             }
             LOGGER.log(Level.FINEST, "N°$favorable_case_object_id devait être cloné $current_favorable_case_to_int fois et a été cloné $iterations fois.")
