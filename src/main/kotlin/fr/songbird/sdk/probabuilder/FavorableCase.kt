@@ -143,6 +143,11 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
         return potential_case * this.favorable_case_percentage/100
     }
 
+    /**
+     * @return Une nouvelle instance de la classe
+     * FavorableCase qui possèdent les mêmes
+     * caractéristiques que l'instance courante.
+     */
     fun copy() : FavorableCase<T>
     {
         return FavorableCase(this.item_name, this.item, this.favorable_case_percentage)
