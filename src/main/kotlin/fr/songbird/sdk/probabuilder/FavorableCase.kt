@@ -39,7 +39,7 @@ import java.util.logging.Logger
  * ```
  * val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
  * val bar : FavorableCase<String> = FavorableCase("another item", "item content", 10)
- * val equality_success = foo.item_name.equals(bar.item_name) // return false
+ * val equality_success = foo.equals(bar) // return false
  * ```
  *
  * Vous remarquerez que l'on compare bien le *nom de l'item* plutôt que son contenu, mais le système parvient
