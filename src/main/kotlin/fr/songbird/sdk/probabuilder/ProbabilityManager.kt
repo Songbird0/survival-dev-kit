@@ -106,7 +106,7 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 
     private fun init_items_list_content() : ArrayList<FavorableCase<T>>
     {
-        val items_list = init_items_list_content()
+        val items_list = init_items_list_size()
         val favorable_case_sum : Int = get_favorable_case_sum()
         if(favorable_case_sum > potential_case)
             throw Exception("Erreur sémantique: La somme des cas favorables est plus élevée que le nombre de cas potentiels." +
