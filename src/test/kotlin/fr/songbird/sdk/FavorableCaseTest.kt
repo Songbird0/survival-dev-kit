@@ -100,7 +100,15 @@ class FavorableCaseTest {
     fun cloned_object_test()
     {
         val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
-        val bar = foo.clone()
-        assert(foo != bar, {"foo est égal à bar, ce n'est pas normal."})
+        val bar : FavorableCase<String> = foo.copy()
+        assert(foo != bar, {"bar est une référence vers foo, ce n'est pas normal."})
+    }
+
+    @Test
+    fun object_equality_test()
+    {
+        val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
+        val bar : FavorableCase<String> = foo.copy()
+        assert(foo.equals(bar), {"bar ne contient pas la même chose que foo."})
     }
 }
