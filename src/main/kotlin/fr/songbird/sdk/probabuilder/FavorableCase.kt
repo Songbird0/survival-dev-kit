@@ -95,7 +95,7 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
     private var favorable_case_percentage : Int = 0
 
     init {
-        LOGGER.log(Level.INFO, "Construction de l'item.")
+        LOGGER.log(Level.FINEST, "Construction de l'item.")
         val is_empty : Boolean? = item_name?.isEmpty()
         if(is_empty != null)
         {
@@ -103,7 +103,7 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
                 throw Exception("Vous avez renommé votre item, mais la chaîne de caractères est vide. " +
                         "\nRéglez le problème pour faire disparaître cette erreur.")
             }
-            LOGGER.log(Level.INFO, "L'item a été renommé $item_name.")
+            LOGGER.log(Level.FINEST, "L'item a été renommé $item_name.")
         }
 
         if(favorable_case_percentage < 0)
@@ -113,7 +113,7 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
             throw Exception("Le pourcentage de cas favorables est nul. " +
                     "\nFixez le problème pour voir l'erreur disparaître.")
         this.favorable_case_percentage = favorable_case_percentage
-        LOGGER.log(Level.INFO, "Aucun problème détecté lors de la construction de l'item $item_name.")
+        LOGGER.log(Level.FINEST, "Aucun problème détecté lors de la construction de l'item $item_name.")
     }
 
     /**
