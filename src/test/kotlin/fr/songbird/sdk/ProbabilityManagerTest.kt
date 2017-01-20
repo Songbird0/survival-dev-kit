@@ -33,6 +33,15 @@ import java.util.ArrayList
  */
 class ProbabilityManagerTest {
 
+    class Foo(private val first_name: String, private val last_name: String, private val age: Int)
+    {
+
+        fun say_hello() : Unit
+        {
+            println("Hi, I'm $first_name $last_name, and I'm $age years old.")
+        }
+    }
+
     private var fav_case_list : ArrayList<FavorableCase<String>> = ArrayList()
 
     @Before
