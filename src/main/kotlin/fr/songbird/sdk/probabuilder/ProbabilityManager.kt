@@ -111,14 +111,14 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
              * cloné durant la phase de remplissage.
              */
             var iterations: Int = 0
-            LOGGER.log(Level.FINEST, "Calcul du nombre de cas favorables pour l'item N°$favorable_case_object_id.")
+            LOGGER.log(Level.FINER, "Calcul du nombre de cas favorables pour l'item N°$favorable_case_object_id.")
             val current_favorable_case_to_int = favorable_case.get_favorable_case_to_int(potential_case)
             while(iterations < current_favorable_case_to_int)
             {
                 items_list.add(favorable_case.copy())
                 iterations++
             }
-            LOGGER.log(Level.FINEST, "N°$favorable_case_object_id devait être cloné $current_favorable_case_to_int fois et a été cloné $iterations fois.")
+            LOGGER.log(Level.FINER, "N°$favorable_case_object_id devait être cloné $current_favorable_case_to_int fois et a été cloné $iterations fois.")
             favorable_case_object_id++
         }
 
