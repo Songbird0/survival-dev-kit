@@ -99,7 +99,7 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 
     /**
      * Encapsule la méthode `get_items_list_size` pour renvoyer une instance
-     * de la classe ArrayList avec une taille adaptée.
+     * de la classe [ArrayList] avec une taille adaptée.
      * @return Un tableau d'items avec une taille adaptée au nombre de cas potentiels.
      */
     private fun init_items_list_size() : ArrayList<FavorableCase<T>> = ArrayList(get_items_list_size())
