@@ -1,6 +1,6 @@
 /*
  *    SurvivalDevKit, descendante de la bibliothèque utilitaire TheBareMinimum, mais en moins crade. :)
- *     Copyright (C) 2016  Defranceschi Anthony
+ *     Copyright (C) 2017  Defranceschi Anthony
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 package fr.songbird.sdk.probabuilder
 
 import java.util.*
+import java.util.logging.Level
+import java.util.logging.Logger
 
 /**
  * Le gestionnaire de probabilités permet d'établir le nombre de cas
@@ -40,14 +42,19 @@ import java.util.*
  * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
  * @constructor Initialise les objets censés représenter les cas favorables avec une limite de 100 cas potentiels par défaut.
  */
-class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>)
+class ProbabilityManager<T>
+@JvmOverloads
+@Throws(Exception::class)
+constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 {
+
+    private val LOGGER : Logger = Logger.getLogger(ProbabilityManager::class.java.simpleName)
 
     private var  fav_case: ArrayList<FavorableCase<T>>
     /**
      * Le nombre de cas possibles/potentiels par défaut.
      */
-    private var  potential_case: Int = 100
+    private var  potential_case: Int
 
     init {
         if(fav_case.isEmpty())
@@ -59,14 +66,6 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
                     + "\nVous pouvez par contre mettre au moins autant d'objets dans le tableau que de cas possibles.")
 
         this.fav_case = fav_case
-    }
-
-    /**
-     * Initialise les objets censés représenter les cas favorables, mais permet de modifier la limite des cas potentiels.
-     * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
-     * @param potential_case Le nombre de cas potentiels.
-     */
-    @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int): this(fav_case){
         if(potential_case < 0)
             throw Exception("Le nombre de cas potentiels est négatif.")
         if(potential_case == 0)
@@ -88,12 +87,57 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
      * de la classe ArrayList avec une taille adaptée.
      * @return Un tableau d'items avec une taille adaptée au nombre de cas potentiels.
      */
-    private fun init_items_list_size() : ArrayList<T> = ArrayList(get_items_list_size())
+    private fun init_items_list_size() : ArrayList<FavorableCase<T>> = ArrayList(get_items_list_size())
 
-    private fun init_items_list_content() : ArrayList<T>
+    private fun init_items_list_content() : ArrayList<FavorableCase<T>>
     {
         val items_list = init_items_list_content()
+        val favorable_case_sum : Int = get_favorable_case_sum()
+        if(favorable_case_sum > potential_case)
+            throw Exception("Erreur sémantique: La somme des cas favorables est plus élevée que le nombre de cas potentiels." +
+                    "\nSomme de tous les cas favorables est égal à $favorable_case_sum alors qu'il y a $potential_case cas potentiels.")
+        if(favorable_case_sum < potential_case)
+            LOGGER.log(Level.WARNING, "La somme des cas favorables n'est pas égal au nombre de cas potentiels, vous pouvez encore remplir votre liste." +
+                    "\nSomme de tous les cas favorables est égal à $favorable_case_sum alors qu'il y a $potential_case cas potentiels.")
+        /**
+         * Numérote les items pour les identifier
+         * dans les logs.
+         */
+        var favorable_case_object_id : Int = 0
+        fav_case.forEach { favorable_case ->
+            /**
+             * Numérote les itérations pour savoir
+             * combien de fois l'item a été
+             * cloné durant la phase de remplissage.
+             */
+            var iterations: Int = 0
+            LOGGER.log(Level.FINEST, "Calcul du nombre de cas favorables pour l'item N°$favorable_case_object_id.")
+            val current_favorable_case_to_int = favorable_case.get_favorable_case_to_int(potential_case)
+            while(iterations < current_favorable_case_to_int)
+            {
+                items_list.add(favorable_case.copy())
+                iterations++
+            }
+            LOGGER.log(Level.FINEST, "N°$favorable_case_object_id devait être cloné $current_favorable_case_to_int fois et a été cloné $iterations fois.")
+            favorable_case_object_id++
+        }
 
+        return items_list
+    }
+
+    /**
+     * Cette méthode sert la somme des cas favorables de chaque item
+     * pour vérifier dans d'autres services si la somme n'est pas supérieure
+     * au nombre de cas potentiels.
+     * @return La somme des cas favorables de chaque item.
+     */
+    private fun get_favorable_case_sum() : Int
+    {
+        var favorable_case_sum : Int = 0
+        fav_case.forEach<FavorableCase<T>> {
+            it -> favorable_case_sum += it.get_favorable_case_to_int(potential_case)
+        }
+        return favorable_case_sum
     }
 
 

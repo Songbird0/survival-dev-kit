@@ -1,6 +1,6 @@
 /*
  *    SurvivalDevKit, descendante de la bibliothèque utilitaire TheBareMinimum, mais en moins crade. :)
- *     Copyright (C) 2016  Defranceschi Anthony
+ *     Copyright (C) 2017  Defranceschi Anthony
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -85,7 +85,12 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
     private var item_name : String? = null
       private set
 
-    private val item : T = item
+    private var item : T = item
+      private set(value)
+      {
+          if(value != null && item == null)
+              field = value
+      }
 
     private var favorable_case_percentage : Int = 0
 
@@ -138,24 +143,42 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
         return potential_case * this.favorable_case_percentage/100
     }
 
-    /**
-     *
-     */
-    @Override
-    fun clone() : FavorableCase<T> = FavorableCase(this.item_name, this.item, this.favorable_case_percentage)
+    fun copy() : FavorableCase<T>
+    {
+        return FavorableCase(this.item_name, this.item, this.favorable_case_percentage)
+    }
 
     /**
-     *
+     * Permet de comparer l'instance courante
+     * avec un objet du même type.
+     * Cette implémentation de la méthode `equals()`
+     * fait bien évidemment abstraction de l'état (est-ce une référence de l'objet courant ? Est-ce un nouvel objet ?) de chaque objet
+     * pour s'assurer que le contenu est identique (ou non).
+     * Autrement dit, si l'objet passé en paramètre n'est pas une référence de l'objet courant
+     * son contenu sera analysé.
+     * @param an_object L'objet à comparer avec l'instance courante.
+     * @return `true` si l'objet est une référence de l'instance courante ou dispose
+     * des même caractéristiques. (titre de l'item et l'item lui-même), sinon `false`.
      */
     @Override
     fun equals(an_object: FavorableCase<T>) : Boolean
     {
         if(this == an_object)
             return true
-        if(this.item_name == an_object.item_name)
-            return true
-        if(this.item == an_object.item)
+        if((this.item_name == an_object.item_name) && (this.item == an_object.item))
             return true
         return false
+    }
+
+    /**
+     * Cet accesseur vous permet de récupérer
+     * une référence vers l'objet encapsulé.
+     * Cela peut être utile de pouvoir opérer de nouveau sur cet objet
+     * une fois le tirage au sort terminé, par exemple.
+     * @return une référence vers l'objet encapsulé.
+     */
+    fun getItemRef() : T
+    {
+        return this.item
     }
 }

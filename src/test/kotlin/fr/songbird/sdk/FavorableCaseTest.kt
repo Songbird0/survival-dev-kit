@@ -1,6 +1,6 @@
 /*
  *    SurvivalDevKit, descendante de la bibliothèque utilitaire TheBareMinimum, mais en moins crade. :)
- *     Copyright (C) 2016  Defranceschi Anthony
+ *     Copyright (C) 2017  Defranceschi Anthony
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
  *
  *     If you need more information, feel free to contact me at chaacygg[at]gmail[dot]com.
  */
-
 package fr.songbird.sdk
 
 import fr.songbird.sdk.probabuilder.FavorableCase
@@ -101,7 +100,15 @@ class FavorableCaseTest {
     fun cloned_object_test()
     {
         val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
-        val bar = foo.clone()
-        assert(foo != bar, {"foo est égal à bar, ce n'est pas normal."})
+        val bar : FavorableCase<String> = foo.copy()
+        assert(foo != bar, {"bar est une référence vers foo, ce n'est pas normal."})
+    }
+
+    @Test
+    fun object_equality_test()
+    {
+        val foo : FavorableCase<String> = FavorableCase("my awesome item", "item content", 10)
+        val bar : FavorableCase<String> = foo.copy()
+        assert(foo.equals(bar), {"bar ne contient pas la même chose que foo."})
     }
 }
