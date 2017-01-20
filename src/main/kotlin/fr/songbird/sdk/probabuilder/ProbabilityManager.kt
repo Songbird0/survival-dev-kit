@@ -65,6 +65,12 @@ constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
      */
     private var  potential_case: Int
 
+    /**
+     * On part du principe que le nombre de cas favorable n'est jamais plus petit que
+     * le nombre de cas potentiels, jusqu'à la preuve du contraire.
+     */
+    private var favorable_case_sum_smaller_than_default_potential_case = false
+
     init {
         if(fav_case.isEmpty())
             throw Exception("La liste est vide.")
