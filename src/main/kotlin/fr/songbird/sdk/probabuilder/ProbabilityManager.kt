@@ -42,7 +42,10 @@ import java.util.logging.Logger
  * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
  * @constructor Initialise les objets censés représenter les cas favorables avec une limite de 100 cas potentiels par défaut.
  */
-class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>)
+class ProbabilityManager<T>
+@JvmOverloads
+@Throws(Exception::class)
+constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int = 100)
 {
 
     private val LOGGER : Logger = Logger.getLogger(ProbabilityManager::class.java.simpleName)
@@ -51,7 +54,7 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
     /**
      * Le nombre de cas possibles/potentiels par défaut.
      */
-    private var  potential_case: Int = 100
+    private var  potential_case: Int
 
     init {
         if(fav_case.isEmpty())
@@ -63,14 +66,6 @@ class ProbabilityManager<T> @Throws(Exception::class) constructor(fav_case: Arra
                     + "\nVous pouvez par contre mettre au moins autant d'objets dans le tableau que de cas possibles.")
 
         this.fav_case = fav_case
-    }
-
-    /**
-     * Initialise les objets censés représenter les cas favorables, mais permet de modifier la limite des cas potentiels.
-     * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
-     * @param potential_case Le nombre de cas potentiels.
-     */
-    @Throws(Exception::class) constructor(fav_case: ArrayList<FavorableCase<T>>, potential_case: Int): this(fav_case){
         if(potential_case < 0)
             throw Exception("Le nombre de cas potentiels est négatif.")
         if(potential_case == 0)
