@@ -106,7 +106,14 @@ class ProbabilityManagerTest {
     @Test(expected = Exception::class)
     fun favorable_case_size_is_out_of_range_test()
     {
-        val proba_manager : ProbabilityManager<String> = ProbabilityManager(fav_case_list)
+        val fav_case_list_: ArrayList<FavorableCase<String>> = ArrayList(200);
+        var i: Int = 0
+        while(i < 200)
+        {
+            fav_case_list_.add(FavorableCase(null, "item content", 10))
+            i++
+        }
+        val proba_manager : ProbabilityManager<String> = ProbabilityManager(fav_case_list_)
     }
 
     @Test(expected = Exception::class)
