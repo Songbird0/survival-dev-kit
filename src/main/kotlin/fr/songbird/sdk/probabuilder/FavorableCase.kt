@@ -42,8 +42,6 @@ import java.util.logging.Logger
  * val equality_success = foo.equals(bar) // return false
  * ```
  *
- * Vous remarquerez que l'on compare bien le *nom de l'item* plutôt que son contenu, mais le système parvient
- * quand même à différencier une instance d'une autre.
  * Si vous ne souhaitez pas nommer vos items, passez l'argument à `null`, les services se débrouilleront.
  *
  * @param item L'instance de l'item lui-même.
@@ -84,6 +82,7 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
                         "\nRéglez le problème pour faire disparaître cette erreur.")
             }
             LOGGER.log(Level.FINEST, "L'item a été renommé $item_name.")
+            this.item_name = item_name
         }
 
         if(favorable_case_percentage < 0)
@@ -103,7 +102,7 @@ class FavorableCase<T>(item_name: String? = null, item : T, favorable_case_perce
      * ce service donne la possibilité au système de questionner ses composants
      * pour gérer l'espace alloué.
      * **Note**: Bien que ça soit possible, ce service n'est pas à utiliser en dehors du système de probabilités.
-     * La méthode n'est dédiée qu'à le servir, ne peut pas être override et l'utiliser en dehors de son champ d'action
+     * La méthode n'existe que pour le servir, ne peut pas être override et l'utiliser en dehors de son champ d'action
      * serait un non-sens total.
      *
      * @return Le nombre de cas favorables sous sa forme entière.
