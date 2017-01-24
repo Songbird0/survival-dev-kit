@@ -26,6 +26,7 @@ import org.junit.Test;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by anthony on 24/01/17.
@@ -55,6 +56,36 @@ public class StringParserTest {
     public void path_to_database_is_null()
     {
         new StringParser(null, FileType.JSON);
+    }
+
+    @Test
+    public void use_a_file_as_database()
+    {
+        new StringParser(Paths.get(System.getProperty("user.dir")), FileType.JSON);
+    }
+
+    @Test
+    public void use_a_list_as_database()
+    {
+        new StringParser(Arrays.asList("Foo", "Bar", "Baz", "Bang"));
+    }
+
+    @Test
+    public void submit_pattern_with_list()
+    {
+        StringParser stringParser = new StringParser(Arrays.asList("Foo", "Bar"));
+        stringParser.submit_pattern("Foo");
+    }
+
+    @Test
+    public void equality_string_event_test()
+    {
+        StringParser stringParser = new StringParser(Arrays.asList("Foo", "Bar"));
+        stringParser.addListener((String targeted_input, String input_found) -> {
+            System.out.println("Le terme " + targeted_input + " a bien été trouvé.");
+            System.out.println("Résultat de la recherche: " + input_found + ".");
+        });
+        stringParser.submit_pattern("Foo");
     }
 
 }
