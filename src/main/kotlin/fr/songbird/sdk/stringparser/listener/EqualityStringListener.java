@@ -22,8 +22,7 @@ package fr.songbird.sdk.stringparser.listener;
 
 /**
  * Permet, aux instances qui l'implémentent, d'écouter les résultats
- * des tests d'égalité de la classe StringParser.
- * @see fr.songbird.sdk.stringparser.StringParser StringParser
+ * des tests d'égalité de la classe {@link fr.songbird.sdk.stringparser.StringParser StringParser}.
  */
 @FunctionalInterface
 public interface EqualityStringListener {
