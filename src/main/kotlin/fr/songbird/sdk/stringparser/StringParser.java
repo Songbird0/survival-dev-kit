@@ -73,7 +73,8 @@ public final class StringParser {
             throw new RuntimeException("Le chemin passé en paramètre est nul.");
         if(fileType == null)
             throw new RuntimeException("Le type de fichier passé en paramètre est nul.");
-
+        light_database = path_to_database.toFile();
+        this.fileType = fileType;
     }
 
     /**
@@ -92,6 +93,15 @@ public final class StringParser {
             throw new RuntimeException("La référence passée en paramètre est nulle.");
         if(virtual_database.isEmpty())
             throw new RuntimeException("La liste passée en paramètre est vide.");
+        light_database = virtual_database;
+    }
+
+    private void fireEqualityStringEvent(final String targeted_input, final String input_found)
+    {
+        for(StringParserListener stringParserListener: listeners_list)
+        {
+            stringParserListener.whenInputIsFound(targeted_input, input_found);
+        }
     }
 
     /**
