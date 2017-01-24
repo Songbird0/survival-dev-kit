@@ -31,7 +31,7 @@ import java.util.List;
  * Cette classe peut être utilisée lorsque vous avez plus d'une
  * dizaines de pattern dont il faut tester l'égalité avec d'autres entrées.
  * Pour fonctionner correctement, la classe devra s'appuyer sur une base de données,
- * peu importe le format (fichier basique, un tableau, fichier json, fichier yml...) et renverra l'état du test
+ * peu importe le format (fichier texte basique, un tableau, fichier json, fichier yml...) et renverra l'état du test
  * une fois terminé.
  * StringParser est prévu, à terme, pour être un service embarqué et léger. De ce fait
  * la classe n'aura jamais recours à des serveurs de base de données classiques.
