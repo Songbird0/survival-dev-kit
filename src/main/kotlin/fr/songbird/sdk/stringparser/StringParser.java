@@ -80,7 +80,7 @@ public final class StringParser {
     }
 
     /**
-     * Il est possible de passer une liste de pattern à
+     * Il est possible de passer une liste de patterns à
      * analyser grâce à ce constructeur.
      * La liste sera sollicitée comme un fichier peut l'être.
      * Si vous souhaitez stocker un grand nombre de données, privilégiez la surcharge
