@@ -41,6 +41,12 @@ import java.util.List;
 public final class StringParser {
 
     /**
+     * Le type de fichier utilisé en tant que base de données.
+     * Note: Cet attribut est assigné à {@code null} si l'utilisateur
+     * ne sollicite pas de fichiers.
+     */
+    private FileType fileType = null;
+    /**
      * Cet attribut récupérera une référence vers la
      * ressource qui servira de base de données
      * aux services de la classe.
