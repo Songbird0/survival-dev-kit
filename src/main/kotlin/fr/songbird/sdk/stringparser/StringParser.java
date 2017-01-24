@@ -63,6 +63,8 @@ public final class StringParser {
      * Ce constructeur vous permet de passer en paramètre
      * un chemin vers votre base de données.
      * @param path_to_database Le chemin vers votre base de données.
+     *                         Note: le chemin doit forcément pointer vers un fichier
+     *                         sinon une exception sera levée.
      * @param fileType Le format de votre base de données.
      *                 Notez que si le format renseigné n'est pas le même que celui trouvé
      *                 par le programme, une exception sera levée.
