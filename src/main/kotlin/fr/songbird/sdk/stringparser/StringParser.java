@@ -20,7 +20,6 @@
 
 package fr.songbird.sdk.stringparser;
 
-import fr.songbird.sdk.stringparser.listener.EqualityStringListener;
 import fr.songbird.sdk.stringparser.listener.StringParserListener;
 
 import java.nio.file.Path;
@@ -34,9 +33,8 @@ import java.util.List;
  * Pour fonctionner correctement, la classe devra s'appuyer sur une base de données,
  * peu importe le format (fichier basique, un tableau, fichier json, fichier yml...) et renverra l'état du test
  * une fois terminé.
- * <h3>Pourquoi ne pas directement utiliser un serveur de base de données ?</h3>
- * StringParser est prévu, à terme, pour être un service embarqué et léger.
- * Faire appel à des serveurs distants n'est pas une bonne idée.
+ * StringParser est prévu, à terme, pour être un service embarqué et léger. De ce fait
+ * la classe n'aura jamais recours à des serveurs de base de données classiques.
  * @author anthony
  * @since 24/01/17.
  */
