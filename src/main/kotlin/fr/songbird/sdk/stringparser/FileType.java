@@ -22,8 +22,7 @@ package fr.songbird.sdk.stringparser;
 
 /**
  * Représente tous les formats de fichiers pouvant
- * servir de base de données aux services de la classe StringParser.
- * @see StringParser StringParser
+ * servir de base de données aux services de la classe {@link StringParser StringParser}.
  */
 public enum FileType {
 
