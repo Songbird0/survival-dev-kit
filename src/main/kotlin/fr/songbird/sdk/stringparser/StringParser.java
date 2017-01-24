@@ -43,7 +43,7 @@ public final class StringParser {
     /**
      * Le type de fichier utilisé en tant que base de données.
      * Note: Cet attribut est assigné à {@code null} si l'utilisateur
-     * ne sollicite pas de fichiers.
+     * ne sollicite pas de fichier.
      */
     private FileType fileType = null;
     /**
