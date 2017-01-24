@@ -108,7 +108,7 @@ public final class StringParser {
 
     /**
      * Permet de passer en paramètre une entrée qui
-     * sera soumis à analyse.
+     * sera soumise à analyse.
      * @param pattern_to_string Le pattern qui sera soumis à analyse.
      * @param file_reading A initialiser à {@code true} si la base de données que vous utilisez
      *                     est un fichier, {@code false} si c'est autre chose. (e.g. une collection)
