@@ -36,6 +36,7 @@
         <dokka.version>0.9.11</dokka.version>
         <junit.version>4.12</junit.version>
         <sqlite.version>3.7.2</sqlite.version>
+        <snakeyaml.version>1.17</snakeyaml.version>
     </properties>
 
     <dependencies>
@@ -55,6 +56,11 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
         </dependency>
         <dependency>
             <groupId>org.xerial</groupId>
