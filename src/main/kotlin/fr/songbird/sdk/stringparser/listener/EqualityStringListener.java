@@ -22,8 +22,7 @@ package fr.songbird.sdk.stringparser.listener;
 
 /**
  * Permet, aux instances qui l'implémentent, d'écouter les résultats
- * des tests d'égalité de la classe StringParser.
- * @see fr.songbird.sdk.stringparser.StringParser StringParser
+ * des tests d'égalité de la classe {@link fr.songbird.sdk.stringparser.StringParser StringParser}.
  */
 @FunctionalInterface
 public interface EqualityStringListener {
@@ -31,7 +30,7 @@ public interface EqualityStringListener {
      * Méthode appelée sur l'écouteur lorsque
      * l'entrée soumise a été retrouvée dans la base
      * de données.
-     * @param targeted_input L'entrée soumise à une instance de la classe StringParser.
+     * @param targeted_input L'entrée soumise à une instance de la classe {@link fr.songbird.sdk.stringparser.StringParser StringParser}.
      * @param input_found La donnée stockée qui a été testée auprès de l'entrée soumise.
      */
     void whenInputIsFound(final String targeted_input, final String input_found);

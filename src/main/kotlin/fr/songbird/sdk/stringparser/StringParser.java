@@ -31,7 +31,7 @@ import java.util.List;
  * Cette classe peut être utilisée lorsque vous avez plus d'une
  * dizaines de pattern dont il faut tester l'égalité avec d'autres entrées.
  * Pour fonctionner correctement, la classe devra s'appuyer sur une base de données,
- * peu importe le format (fichier basique, un tableau, fichier json, fichier yml...) et renverra l'état du test
+ * peu importe le format (fichier texte basique, un tableau, fichier json, fichier yml...) et renverra l'état du test
  * une fois terminé.
  * StringParser est prévu, à terme, pour être un service embarqué et léger. De ce fait
  * la classe n'aura jamais recours à des serveurs de base de données classiques.
@@ -43,7 +43,7 @@ public final class StringParser {
     /**
      * Le type de fichier utilisé en tant que base de données.
      * Note: Cet attribut est assigné à {@code null} si l'utilisateur
-     * ne sollicite pas de fichiers.
+     * ne sollicite pas de fichier.
      */
     private FileType fileType = null;
     /**
@@ -63,6 +63,8 @@ public final class StringParser {
      * Ce constructeur vous permet de passer en paramètre
      * un chemin vers votre base de données.
      * @param path_to_database Le chemin vers votre base de données.
+     *                         Note: le chemin doit forcément pointer vers un fichier
+     *                         sinon une exception sera levée.
      * @param fileType Le format de votre base de données.
      *                 Notez que si le format renseigné n'est pas le même que celui trouvé
      *                 par le programme, une exception sera levée.
@@ -78,7 +80,7 @@ public final class StringParser {
     }
 
     /**
-     * Il est possible de passer une liste de pattern à
+     * Il est possible de passer une liste de patterns à
      * analyser grâce à ce constructeur.
      * La liste sera sollicitée comme un fichier peut l'être.
      * Si vous souhaitez stocker un grand nombre de données, privilégiez la surcharge
@@ -106,7 +108,7 @@ public final class StringParser {
 
     /**
      * Permet de passer en paramètre une entrée qui
-     * sera soumis à analyse.
+     * sera soumise à analyse.
      * @param pattern_to_string Le pattern qui sera soumis à analyse.
      * @param file_reading A initialiser à {@code true} si la base de données que vous utilisez
      *                     est un fichier, {@code false} si c'est autre chose. (e.g. une collection)

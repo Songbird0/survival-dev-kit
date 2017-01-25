@@ -21,7 +21,8 @@
 package fr.songbird.sdk.stringparser.listener;
 
 /**
- * Interface à implémenter sur les classes à l'écoute.
+ * Interface à implémenter sur les classes à l'écoute d'une (ou plusieurs)
+ * instance de la classe {@link fr.songbird.sdk.stringparser.StringParser StringParser}.
  */
 public interface StringParserListener extends EqualityStringListener{
 }

@@ -22,8 +22,7 @@ package fr.songbird.sdk.stringparser;
 
 /**
  * Représente tous les formats de fichiers pouvant
- * servir de base de données aux services de la classe StringParser.
- * @see StringParser StringParser
+ * servir de base de données aux services de la classe {@link StringParser StringParser}.
  */
 public enum FileType {
 
@@ -31,18 +30,21 @@ public enum FileType {
      * Représente un fichier texte basique, sans extension particulière.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".txt",
      * que vous soyez sous Windows, ou non.
+     * Une exception sera levée si cette convention n'est pas respectée.
      */
     VANILLA,
     /**
      * Représente un fichier texte avec une structure json.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".json",
      * que vous soyez sous Windows, ou non.
+     * Une exception sera levée si cette convention n'est pas respectée.
      */
     JSON,
     /**
      * Représente un fichier texte avec une structure yml.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".yml",
      * que vous soyez sous Windows, ou non.
+     * Une exception sera levée si cette convention n'est pas respectée.
      */
     YAML
 }
