@@ -34,14 +34,14 @@ public enum FileType {
      */
     VANILLA(".txt"),
     /**
-     * Représente un fichier texte avec une structure json.
+     * Représente un fichier texte au format json.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".json",
      * que vous soyez sous Windows, ou non.
      * Une exception sera levée si cette convention n'est pas respectée.
      */
     JSON(".json"),
     /**
-     * Représente un fichier texte avec une structure yml.
+     * Représente un fichier texte au format yml.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".yml",
      * que vous soyez sous Windows, ou non.
      * Une exception sera levée si cette convention n'est pas respectée.
