@@ -81,7 +81,7 @@ class ProbabilityManagerTest {
          * Techniquement, chacun des wrappers initialisés précédemment devraient donc réserver
          * 10 cas respectivement.
          *
-         * Note: Effectivement, si 3 wrappers réservent 10% respectivement, nous n'opérons plus sur
+         * **Note**: Effectivement, si 3 wrappers réservent 10% respectivement, nous n'opérons plus sur
          * 100 cas potentiels, mais bien 30. Ce n'est pas un problème, le gestionnaire
          * fait abstraction de ce qui n'a pas été ajouté.
          */
