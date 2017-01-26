@@ -32,19 +32,36 @@ public enum FileType {
      * que vous soyez sous Windows, ou non.
      * Une exception sera levée si cette convention n'est pas respectée.
      */
-    VANILLA,
+    VANILLA(".txt"),
     /**
      * Représente un fichier texte avec une structure json.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".json",
      * que vous soyez sous Windows, ou non.
      * Une exception sera levée si cette convention n'est pas respectée.
      */
-    JSON,
+    JSON(".json"),
     /**
      * Représente un fichier texte avec une structure yml.
      * Par souci de portabilité, vérifiez bien que votre fichier dispose de l'extension ".yml",
      * que vous soyez sous Windows, ou non.
      * Une exception sera levée si cette convention n'est pas respectée.
      */
-    YAML
+    YAML(".yml");
+
+    private final String extension_file;
+
+    private FileType(String extension_file)
+    {
+        this.extension_file = extension_file;
+    }
+
+    /**
+     * Permet de connaître l'extension du fichier pour chaque
+     * format supportés par le parser.
+     * @return Une instance de la classe String contenant l'extension du format.
+     */
+    public String getExtension_file()
+    {
+        return extension_file;
+    }
 }
