@@ -133,6 +133,8 @@ public class YamlFileWrapper {
      * au minimum, si le squelette par défaut est respecté. Que la valeur des
      * clés soit nulle, ou non, importe peu, mais elles doivent au moins être
      * présentes.
+     * <strong>Note</strong>: Ce service n'assure en aucun cas l'intégrité des valeurs
+     * de chaque clés. Cette phase de test est à votre charge.
      *
      * @return true si le chargement s'est bien passé, sinon false.
      */
