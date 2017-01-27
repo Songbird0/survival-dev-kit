@@ -109,9 +109,6 @@ public class YamlFileWrapper {
      * Cette méthode créé et écrit un fichier de configuration disposant du
      * squelette par défaut.
      * <p>
-     * Les ressources utilisées par cette méthode sont linkées ci-dessous.
-     *
-     * @see FileWriter FileWriter
      */
     public void writeThisFile() {
 
