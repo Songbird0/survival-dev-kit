@@ -189,8 +189,31 @@ public final class StringParser {
      */
     public final void submit_pattern(String pattern_to_string, boolean file_reading)
     {
-
+        if(file_reading)
+        {
+            if(fileType == null)
+                throw new RuntimeException("Vous avez modifié l'état du flag file_reading à true, alors que vous " +
+                        "n'avez pas utilisé le constructeur adéquat pour utiliser un fichier comme base de données.\n" +
+                        "Le processus va être abandonné.");
+            final File file_database = cast_light_database(light_database);
+            switch(fileType)
+            {
+                case VANILLA:{
+                    check_extension_file(file_database, FileType.VANILLA);
+                    read_vanilla_file(file_database);
+                }break;
+                case JSON:{
+                    check_extension_file(file_database, FileType.JSON);
+                    read_json_file(file_database);
+                } break;
+                case YAML:{
+                    check_extension_file(file_database, FileType.YAML);
+                    read_yaml_file(file_database);
+                } break;
+            }
+        }
     }
+
 
     /**
      * Surcharge de la méthode {@link StringParser#submit_pattern(String, boolean)}.
