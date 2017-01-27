@@ -126,6 +126,61 @@ public final class StringParser {
     }
 
     /**
+     * Permet de déterminer si l'instance descendant de la classe {@link Object} est bien
+     * une instance de la classe {@link File}.
+     * @param light_database La base de données représentée par un fichier. (dont le format n'est pas déterminé)
+     * @return Une version castée en {@link File}.
+     * @throws RuntimeException Si la référence passée en paramètre n'est pas une instance
+     * de la classe File, le service indiquera une erreur. Cette méthode n'étant utilisée que
+     * dans un seul cas, le paramètre passé doit <strong>forcément</strong> être de type File.
+     * Si l'erreur survient lors de l'appel de cette méthode, vous l'utilisez très certainement dans un autre contexte
+     * que celui pour lequel elle a été créée.
+     */
+    private File cast_light_database(Object light_database) {
+        return (File)light_database;
+    }
+
+    /**
+     * Vérifie si l'extension du fichier sur lequel le programme va
+     * opérer est identique à celle du type de fichier choisi précédemment par l'utilisateur.
+     * @param file_database Le fichier servant de base de données.
+     * @param fileType Une instance de l'enum {@link FileType}.
+     * @throws RuntimeException Ne pouvant garantir le bon fonctionnement.
+     */
+    private void check_extension_file(final File file_database, final FileType fileType) {
+        final String must_have_extension = fileType.getExtension_file();
+        if(!file_database.getName().endsWith(must_have_extension))
+            throw new RuntimeException("Le fichier " + file_database.getName() + " est censé diposer de l'extension " + must_have_extension + ".");
+    }
+
+    /**
+     * Parse et lit dans un fichier json pour fire les événements
+     * relatifs à l'égalité entre les deux patterns.
+     * @param file_database Le fichier servant de base de données.
+     */
+    private void read_json_file(File file_database) {
+
+    }
+
+    /**
+     * Parse et lit dans un fichier yml pour fire les événements
+     * relatifs à l'égalité entre les deux patterns.
+     * @param file_database Le fichier servant de base de données.
+     */
+    private void read_yaml_file(File file_database) {
+
+    }
+
+    /**
+     * Lit simplement dans un fichier texte pour fire les événements
+     * relatifs à l'égalité entre les deux patterns.
+     * @param file_database Le fichier servant de base de données.
+     */
+    private void read_vanilla_file(File file_database) {
+
+    }
+
+    /**
      * Permet de passer en paramètre une entrée qui
      * sera soumise à analyse.
      * @param pattern_to_string Le pattern qui sera soumis à analyse.
