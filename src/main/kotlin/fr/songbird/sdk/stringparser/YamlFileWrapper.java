@@ -66,11 +66,11 @@ public class YamlFileWrapper {
      */
     public YamlFileWrapper(Yaml yaml, File file, Map<String, Object> map) {
         if(yaml == null)
-            throw new RuntimeException("La référence de l'objet Yaml est nulle.");
+            throw new RuntimeException("La référence de l'objet Yaml passée en paramètre est nulle.");
         if(file == null)
-            throw new RuntimeException("La référence de l'objet File est nulle.");
+            throw new RuntimeException("La référence de l'objet File passée en paramètre est nulle.");
         if(map == null)
-            throw new RuntimeException("La référence de l'objet Map est nulle.");
+            throw new RuntimeException("La référence de l'objet Map passée en paramètre est nulle.");
         virtual_file = yaml;
         target_file = file;
         default_skeleton = map;
