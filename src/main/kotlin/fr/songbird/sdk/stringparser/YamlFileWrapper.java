@@ -88,14 +88,9 @@ public class YamlFileWrapper {
     }
 
     /**
-     * <h3>Règles</h3>
-     * <ul>
-     * <li>Le fichier doit pouvoir être lu.</li>
-     * <li>Le fichier doit pouvoir être modifié.</li>
-     * </ul>
+     * S'assure que le fichier peut être lu et modifié.
      *
-     * @return {@code true} si le fichier respecte les règles précédemment
-     * énoncées, sinon {@code false}.
+     * @return {@code true} si le fichier peut être lu et modifié, sinon {@code false}.
      */
     public boolean fileIntegrityChecking() {
         if (target_file.canRead() && target_file.canWrite()) {
