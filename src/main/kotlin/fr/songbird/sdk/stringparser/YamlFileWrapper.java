@@ -65,8 +65,12 @@ public class YamlFileWrapper {
      *             qu'il arrive.
      */
     public YamlFileWrapper(Yaml yaml, File file, Map<String, Object> map) {
-        assert (yaml != null && file != null && map != null) : "L'un des binding passés en paramètre est nul.\nDebug:"
-                + "\nyaml == " + yaml + "\nfile == " + file + "\nmap == " + map;
+        if(yaml == null)
+            throw new RuntimeException("La référence de l'objet Yaml est nulle.");
+        if(file == null)
+            throw new RuntimeException("La référence de l'objet File est nulle.");
+        if(map == null)
+            throw new RuntimeException("La référence de l'objet Map est nulle.");
         virtual_file = yaml;
         target_file = file;
         default_skeleton = map;
