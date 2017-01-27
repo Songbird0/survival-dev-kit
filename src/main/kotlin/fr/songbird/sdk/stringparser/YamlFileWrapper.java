@@ -82,9 +82,7 @@ public class YamlFileWrapper {
      */
     public boolean filePresenceChecking() {
         target_file.getParentFile().mkdirs();
-        if (target_file.exists())
-            return true;
-        return false;
+        return target_file.exists();
     }
 
     /**
