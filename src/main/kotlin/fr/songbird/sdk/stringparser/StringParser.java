@@ -22,6 +22,8 @@ package fr.songbird.sdk.stringparser;
 
 import fr.songbird.sdk.stringparser.listener.StringParserListener;
 
+import java.io.File;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,15 @@ public final class StringParser {
      * Cet attribut récupérera une référence vers la
      * ressource qui servira de base de données
      * aux services de la classe.
+     * <p>
+     * Concernant le choix d'avoir un seul attribut typé Object plutôt que d'avoir deux attributs distincts
+     * (l'un de type List, l'autre de type File), j'ai choisi de les réunir dans un seul et même attribut
+     * car ce service, étant très générique, n'a pas vocation de traiter d'autres types de données que ceux-ci.
+     * (des vecteurs et des fichiers, en l'occurrence)
+     * Dans la procédure submit_pattern, le type de cet attribut est testé car la procédure peut être surchargée et
+     * potentiellement contenir des bugs si l'utilisateur venait à initialiser une instance de la classe
+     * StringParser avec une List puis ensuite utiliser submit_pattern comme si l'instance était initialisée avec un
+     * chemin vers un fichier à solliciter. (ce comportement serait illégal)
      */
     private Object light_database = null;
     /**
@@ -73,6 +84,8 @@ public final class StringParser {
     {
         if(path_to_database == null)
             throw new RuntimeException("Le chemin passé en paramètre est nul.");
+        if(path_to_database.toString().isEmpty())
+            throw new RuntimeException("Le chemin passé en paramètre est vide, il ne pointe sur rien.");
         if(fileType == null)
             throw new RuntimeException("Le type de fichier passé en paramètre est nul.");
         light_database = path_to_database.toFile();
@@ -98,12 +111,73 @@ public final class StringParser {
         light_database = virtual_database;
     }
 
+    /**
+     * Appelle la méthode {@link fr.songbird.sdk.stringparser.listener.EqualityStringListener#whenInputIsFound(String, String) EqualityStringListener.whenInputIsFound(String, String)}
+     * sur tous les listeners qui l'ont implémentée.
+     * @param targeted_input La chaîne de caractères qui a été passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
+     * @param input_found La chaîne de caractères qui a été jugée "égale" à celle soumise.
+     */
     private void fireEqualityStringEvent(final String targeted_input, final String input_found)
     {
         for(StringParserListener stringParserListener: listeners_list)
         {
             stringParserListener.whenInputIsFound(targeted_input, input_found);
         }
+    }
+
+    /**
+     * Permet de déterminer si l'instance descendant de la classe {@link Object} est bien
+     * une instance de la classe {@link File}.
+     * @param light_database La base de données représentée par un fichier. (dont le format n'est pas déterminé)
+     * @return Une version castée en {@link File}.
+     * @throws RuntimeException Si la référence passée en paramètre n'est pas une instance
+     * de la classe File, le service indiquera une erreur. Cette méthode n'étant utilisée que
+     * dans un seul cas, le paramètre passé doit <strong>forcément</strong> être de type File.
+     * Si l'erreur survient lors de l'appel de cette méthode, vous l'utilisez très certainement dans un autre contexte
+     * que celui pour lequel elle a été créée.
+     */
+    private File cast_light_database(Object light_database) {
+        return (File)light_database;
+    }
+
+    /**
+     * Vérifie si l'extension du fichier sur lequel le programme va
+     * opérer est identique à celle du type de fichier choisi précédemment par l'utilisateur.
+     * @param file_database Le fichier servant de base de données.
+     * @param fileType Une instance de l'enum {@link FileType}.
+     * @throws RuntimeException Ne pouvant garantir le bon fonctionnement.
+     */
+    private void check_extension_file(final File file_database, final FileType fileType) {
+        final String must_have_extension = fileType.getExtension_file();
+        if(!file_database.getName().endsWith(must_have_extension))
+            throw new RuntimeException("Le fichier " + file_database.getName() + " est censé diposer de l'extension " + must_have_extension + ".");
+    }
+
+    /**
+     * Parse et lit dans un fichier json pour fire les événements
+     * relatifs à l'égalité entre les deux patterns.
+     * @param file_database Le fichier servant de base de données.
+     */
+    private void read_json_file(File file_database) {
+
+    }
+
+    /**
+     * Parse et lit dans un fichier yml pour fire les événements
+     * relatifs à l'égalité entre les deux patterns.
+     * @param file_database Le fichier servant de base de données.
+     */
+    private void read_yaml_file(File file_database) {
+
+    }
+
+    /**
+     * Lit simplement dans un fichier texte pour fire les événements
+     * relatifs à l'égalité entre les deux patterns.
+     * @param file_database Le fichier servant de base de données.
+     */
+    private void read_vanilla_file(File file_database) {
+
     }
 
     /**
@@ -117,28 +191,29 @@ public final class StringParser {
     {
         if(file_reading)
         {
-            /* ... */
-        }
-        else
-        {
-            /* Ici, on assume que l'utilisateur n'a pas choisi d'utiliser
-            * un fichier pour stocker ses données.
-            * Donc si il n'utilise pas de liste ni de fichier, qu'utilise-t-il ?
-            * On ne sait pas, donc on s'assure que c'est bien une liste avant de continuer.*/
-            if(!(light_database instanceof List))
-                throw new RuntimeException("La base de données n'est pas une liste !\nVeuillez vous référer à la documentation " +
-                        "de la méthode submit_pattern().");
-            final List<String> light_database_casted = (List<String>) light_database;
-            for(String element: light_database_casted)
+            if(fileType == null)
+                throw new RuntimeException("Vous avez modifié l'état du flag file_reading à true, alors que vous " +
+                        "n'avez pas utilisé le constructeur adéquat pour utiliser un fichier comme base de données.\n" +
+                        "Le processus va être abandonné.");
+            final File file_database = cast_light_database(light_database);
+            switch(fileType)
             {
-                if(element.equalsIgnoreCase(pattern_to_string))
-                {
-                    fireEqualityStringEvent(pattern_to_string, element);
-                    return;
-                }
+                case VANILLA:{
+                    check_extension_file(file_database, FileType.VANILLA);
+                    read_vanilla_file(file_database);
+                }break;
+                case JSON:{
+                    check_extension_file(file_database, FileType.JSON);
+                    read_json_file(file_database);
+                } break;
+                case YAML:{
+                    check_extension_file(file_database, FileType.YAML);
+                    read_yaml_file(file_database);
+                } break;
             }
         }
     }
+
 
     /**
      * Surcharge de la méthode {@link StringParser#submit_pattern(String, boolean)}.
