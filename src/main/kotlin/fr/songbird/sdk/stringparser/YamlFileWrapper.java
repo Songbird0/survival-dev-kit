@@ -133,7 +133,7 @@ public class YamlFileWrapper {
      * <strong>Note</strong>: Ce service n'assure en aucun cas l'intégrité des valeurs
      * de chaque clés. Cette phase de test est à votre charge.
      *
-     * @return true si le chargement s'est bien passé, sinon false.
+     * @return {@code true} si le chargement s'est bien passé, sinon false.
      */
     public boolean loadHim() {
         try {
