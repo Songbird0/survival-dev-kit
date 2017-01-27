@@ -121,29 +121,7 @@ public final class StringParser {
      */
     public final void submit_pattern(String pattern_to_string, boolean file_reading)
     {
-        if(file_reading)
-        {
-            /* ... */
-        }
-        else
-        {
-            /* Ici, on assume que l'utilisateur n'a pas choisi d'utiliser
-            * un fichier pour stocker ses données.
-            * Donc si il n'utilise pas de liste ni de fichier, qu'utilise-t-il ?
-            * On ne sait pas, donc on s'assure que c'est bien une liste avant de continuer.*/
-            if(!(light_database instanceof List))
-                throw new RuntimeException("La base de données n'est pas une liste !\nVeuillez vous référer à la documentation " +
-                        "de la méthode submit_pattern().");
-            final List<String> light_database_casted = (List<String>) light_database;
-            for(String element: light_database_casted)
-            {
-                if(element.equalsIgnoreCase(pattern_to_string))
-                {
-                    fireEqualityStringEvent(pattern_to_string, element);
-                    return;
-                }
-            }
-        }
+
     }
 
     /**
