@@ -50,7 +50,7 @@ public enum FileType {
 
     private final String extension_file;
 
-    private FileType(String extension_file)
+    FileType(String extension_file)
     {
         this.extension_file = extension_file;
     }

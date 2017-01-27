@@ -65,8 +65,12 @@ public class YamlFileWrapper {
      *             qu'il arrive.
      */
     public YamlFileWrapper(Yaml yaml, File file, Map<String, Object> map) {
-        assert (yaml != null && file != null && map != null) : "L'un des binding passés en paramètre est nul.\nDebug:"
-                + "\nyaml == " + yaml + "\nfile == " + file + "\nmap == " + map;
+        if(yaml == null)
+            throw new RuntimeException("La référence de l'objet Yaml passée en paramètre est nulle.");
+        if(file == null)
+            throw new RuntimeException("La référence de l'objet File passée en paramètre est nulle.");
+        if(map == null)
+            throw new RuntimeException("La référence de l'objet Map passée en paramètre est nulle.");
         virtual_file = yaml;
         target_file = file;
         default_skeleton = map;
@@ -82,26 +86,16 @@ public class YamlFileWrapper {
      */
     public boolean filePresenceChecking() {
         target_file.getParentFile().mkdirs();
-        if (target_file.exists())
-            return true;
-        return false;
+        return target_file.exists();
     }
 
     /**
-     * <h3>Règles</h3>
-     * <ul>
-     * <li>Le fichier doit pouvoir être lu.</li>
-     * <li>Le fichier doit pouvoir être modifié.</li>
-     * </ul>
+     * S'assure que le fichier peut être lu et modifié.
      *
-     * @return {@code true} si le fichier respecte les règles précédemment
-     * énoncées, sinon {@code false}.
+     * @return {@code true} si le fichier peut être lu et modifié, sinon {@code false}.
      */
     public boolean fileIntegrityChecking() {
-        if (target_file.canRead() && target_file.canWrite()) {
-            return true;
-        }
-        return false;
+        return target_file.canRead() && target_file.canWrite();
     }
 
     /**
@@ -109,9 +103,6 @@ public class YamlFileWrapper {
      * Cette méthode créé et écrit un fichier de configuration disposant du
      * squelette par défaut.
      * <p>
-     * Les ressources utilisées par cette méthode sont linkées ci-dessous.
-     *
-     * @see FileWriter FileWriter
      */
     public void writeThisFile() {
 
@@ -129,14 +120,14 @@ public class YamlFileWrapper {
      * Cette dernière méthode vient compléter ce que les autres ne fournissent
      * pas: une analyse.
      * <p>
-     * La méthode loadHim() va, en chargeant le fichier en question, vérifier,
+     * La méthode {@code loadHim()} va, en chargeant le fichier en question, vérifier,
      * au minimum, si le squelette par défaut est respecté. Que la valeur des
      * clés soit nulle, ou non, importe peu, mais elles doivent au moins être
      * présentes.
      * <strong>Note</strong>: Ce service n'assure en aucun cas l'intégrité des valeurs
      * de chaque clés. Cette phase de test est à votre charge.
      *
-     * @return true si le chargement s'est bien passé, sinon false.
+     * @return {@code true} si le chargement s'est bien passé, sinon {@code false}.
      */
     public boolean loadHim() {
         try {
@@ -172,7 +163,7 @@ public class YamlFileWrapper {
 
     /**
      * Cette méthode se charge de vous fournir la structure chargée dans la RAM
-     * sous forme de HashMap.
+     * sous forme de {@link java.util.HashMap HashMap}.
      *
      * @return La structure du fichier de configuration chargé.
      * @throws Exception Notez toutefois que cette méthode lèvera une exception si
