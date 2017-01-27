@@ -98,6 +98,12 @@ public final class StringParser {
         light_database = virtual_database;
     }
 
+    /**
+     * Appelle la méthode {@link fr.songbird.sdk.stringparser.listener.EqualityStringListener#whenInputIsFound(String, String) EqualityStringListener.whenInputIsFound(String, String)}
+     * sur tous les listeners qui l'ont implémentée.
+     * @param targeted_input La chaîne de caractères qui a été passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
+     * @param input_found La chaîne de caractères qui a été jugée "égale" à celle soumise.
+     */
     private void fireEqualityStringEvent(final String targeted_input, final String input_found)
     {
         for(StringParserListener stringParserListener: listeners_list)
