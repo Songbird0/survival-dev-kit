@@ -169,7 +169,7 @@ public class YamlFileWrapper {
 
     /**
      * Cette méthode se charge de vous fournir la structure chargée dans la RAM
-     * sous forme de HashMap.
+     * sous forme de {@link java.util.HashMap HashMap}.
      *
      * @return La structure du fichier de configuration chargé.
      * @throws Exception Notez toutefois que cette méthode lèvera une exception si
