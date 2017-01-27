@@ -22,6 +22,8 @@ package fr.songbird.sdk.stringparser;
 
 import fr.songbird.sdk.stringparser.listener.StringParserListener;
 
+import java.io.File;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,15 @@ public final class StringParser {
      * Cet attribut récupérera une référence vers la
      * ressource qui servira de base de données
      * aux services de la classe.
+     * <p>
+     * Concernant le choix d'avoir un seul attribut typé Object plutôt que d'avoir deux attributs distincts
+     * (l'un de type List, l'autre de type File), j'ai choisi de les réunir dans un seul et même attribut
+     * car ce service, étant très générique, n'a pas vocation de traiter d'autres types de données que ceux-ci.
+     * (des vecteurs et des fichiers, en l'occurrence)
+     * Dans la procédure submit_pattern, le type de cet attribut est testé car la procédure peut être surchargée et
+     * potentiellement contenir des bugs si l'utilisateur venait à initialiser une instance de la classe
+     * StringParser avec une List puis ensuite utiliser submit_pattern comme si l'instance était initialisée avec un
+     * chemin vers un fichier à solliciter. (ce comportement serait illégal)
      */
     private Object light_database = null;
     /**
