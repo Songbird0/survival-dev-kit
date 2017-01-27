@@ -84,6 +84,8 @@ public final class StringParser {
     {
         if(path_to_database == null)
             throw new RuntimeException("Le chemin passé en paramètre est nul.");
+        if(path_to_database.toString().isEmpty())
+            throw new RuntimeException("Le chemin passé en paramètre est vide, il ne pointe sur rien.");
         if(fileType == null)
             throw new RuntimeException("Le type de fichier passé en paramètre est nul.");
         light_database = path_to_database.toFile();
