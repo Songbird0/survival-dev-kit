@@ -91,10 +91,7 @@ public class YamlFileWrapper {
      * @return {@code true} si le fichier peut être lu et modifié, sinon {@code false}.
      */
     public boolean fileIntegrityChecking() {
-        if (target_file.canRead() && target_file.canWrite()) {
-            return true;
-        }
-        return false;
+        return target_file.canRead() && target_file.canWrite();
     }
 
     /**
