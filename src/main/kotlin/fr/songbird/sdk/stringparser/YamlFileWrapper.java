@@ -126,7 +126,7 @@ public class YamlFileWrapper {
      * Cette dernière méthode vient compléter ce que les autres ne fournissent
      * pas: une analyse.
      * <p>
-     * La méthode loadHim() va, en chargeant le fichier en question, vérifier,
+     * La méthode {@code loadHim()} va, en chargeant le fichier en question, vérifier,
      * au minimum, si le squelette par défaut est respecté. Que la valeur des
      * clés soit nulle, ou non, importe peu, mais elles doivent au moins être
      * présentes.
