@@ -149,7 +149,7 @@ public final class StringParser {
     private void check_extension_file(final File file_database, final FileType fileType) {
         final String must_have_extension = fileType.get_extension_file();
         if(!file_database.getName().endsWith(must_have_extension))
-            throw new RuntimeException("Le fichier " + file_database.getName() + " est censé diposer de l'extension " + must_have_extension + ".");
+            throw new RuntimeException("Le fichier " + file_database.getName() + " est censé disposer de l'extension " + must_have_extension + ".");
     }
 
     /**
