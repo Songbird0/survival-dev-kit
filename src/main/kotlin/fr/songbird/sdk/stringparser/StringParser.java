@@ -22,7 +22,7 @@ package fr.songbird.sdk.stringparser;
 
 import fr.songbird.sdk.stringparser.listener.StringParserListener;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +121,14 @@ public final class StringParser {
         for(StringParserListener stringParserListener: listeners_list)
         {
             stringParserListener.whenInputIsFound(targeted_input, input_found);
+        }
+    }
+
+    private void fireInequalityStringEvent(final String targeted_input)
+    {
+        for(StringParserListener stringParserListener: listeners_list)
+        {
+            stringParserListener.whenInputIsNotFound(targeted_input);
         }
     }
 
