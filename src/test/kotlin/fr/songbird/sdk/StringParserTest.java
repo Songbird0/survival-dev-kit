@@ -159,7 +159,7 @@ public class StringParserTest {
      * quelque part.
      */
     @Test
-    public void submit_pattern_with_file_and_file_reading_to_true()
+    public void submit_pattern_with_vanilla_file_and_file_reading_to_true()
     {
         final String USER_DIRECTORY = System.getProperty("user.dir");
         StringParser stringParser = new StringParser(Paths.get(USER_DIRECTORY, "src", "test", "vanilla_file.txt"), FileType.VANILLA);
