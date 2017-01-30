@@ -268,7 +268,14 @@ public final class StringParser {
     {
         submit_pattern(pattern_to_string, false);
     }
-    
+
+    /**
+     * Inscrit une instance d'une classe implémentant l'interface {@link StringParserListener}
+     * à la liste des écouteurs d'événements.
+     * @param stringParserListener L'instance implémentant l'interface {@link StringParserListener}.
+     * @see fr.songbird.sdk.stringparser.listener.EqualityStringListener EqualityStringListener
+     * @see fr.songbird.sdk.stringparser.listener.InequalityStringListener InequalityStringListener
+     */
     public final void addListener(StringParserListener stringParserListener)
     {
         listeners_list.add(stringParserListener);
