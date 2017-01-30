@@ -164,8 +164,9 @@ public final class StringParser {
      * Parse et lit dans un fichier json pour fire les événements
      * relatifs à l'égalité entre les deux patterns.
      * @param file_database Le fichier servant de base de données.
+     * @param pattern_to_string La chaîne de caractères passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
      */
-    private void read_json_file(File file_database) {
+    private void read_json_file(File file_database, String pattern_to_string) {
 
     }
 
@@ -173,8 +174,9 @@ public final class StringParser {
      * Parse et lit dans un fichier yml pour fire les événements
      * relatifs à l'égalité entre les deux patterns.
      * @param file_database Le fichier servant de base de données.
+     * @param pattern_to_string La chaîne de caractères passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
      */
-    private void read_yaml_file(File file_database) {
+    private void read_yaml_file(File file_database, String pattern_to_string) {
 
     }
 
@@ -182,9 +184,35 @@ public final class StringParser {
      * Lit simplement dans un fichier texte pour fire les événements
      * relatifs à l'égalité entre les deux patterns.
      * @param file_database Le fichier servant de base de données.
+     * @param pattern_to_string La chaîne de caractères passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
      */
-    private void read_vanilla_file(File file_database) {
-
+    private void read_vanilla_file(File file_database, String pattern_to_string) {
+        if(!file_database.exists())
+            throw new RuntimeException("Le fichier pointé par le chemin suivant \"" + file_database.getAbsolutePath() + "\" n'existe pas. " +
+                    "Créez ce fichier pour faire disparaître cette erreur, ou corrigez votre chemin.");
+        if(file_database.length() == 0L)
+            throw new RuntimeException("Votre fichier est vide. Veuillez le compléter pour faire disparaître cette erreur.");
+        boolean found_at_least_once = false;
+        try(BufferedReader buffer = new BufferedReader(new FileReader(file_database)))
+        {
+            for(String current_line; (current_line = buffer.readLine()) != null;)
+            {
+                if(current_line.equalsIgnoreCase(pattern_to_string)) {
+                    fireEqualityStringEvent(pattern_to_string, current_line);
+                    found_at_least_once = true;
+                }
+            }
+            /* Si le pattern n'a pas matché
+            * au moins une fois, on fire l'event opposé.*/
+            if(!found_at_least_once)
+                fireInequalityStringEvent(pattern_to_string);
+        } catch(IOException ioe_exception)
+        {
+            /*
+            * Si une erreur, autre qu'une FNFE, survient,
+            * on print la stacktrace.*/
+            ioe_exception.printStackTrace();
+        }
     }
 
     /**
