@@ -22,8 +22,7 @@ package fr.songbird.sdk.stringparser;
 
 import fr.songbird.sdk.stringparser.listener.StringParserListener;
 
-import java.io.File;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +124,14 @@ public final class StringParser {
         }
     }
 
+    private void fireInequalityStringEvent(final String targeted_input)
+    {
+        for(StringParserListener stringParserListener: listeners_list)
+        {
+            stringParserListener.whenInputIsNotFound(targeted_input);
+        }
+    }
+
     /**
      * Permet de déterminer si l'instance descendant de la classe {@link Object} est bien
      * une instance de la classe {@link File}.
@@ -136,7 +143,7 @@ public final class StringParser {
      * Si l'erreur survient lors de l'appel de cette méthode, vous l'utilisez très certainement dans un autre contexte
      * que celui pour lequel elle a été créée.
      */
-    private File cast_light_database(Object light_database) {
+    private File cast_light_database_to_file(Object light_database) {
         return (File)light_database;
     }
 
@@ -148,17 +155,18 @@ public final class StringParser {
      * @throws RuntimeException Ne pouvant garantir le bon fonctionnement.
      */
     private void check_extension_file(final File file_database, final FileType fileType) {
-        final String must_have_extension = fileType.getExtension_file();
+        final String must_have_extension = fileType.get_extension_file();
         if(!file_database.getName().endsWith(must_have_extension))
-            throw new RuntimeException("Le fichier " + file_database.getName() + " est censé diposer de l'extension " + must_have_extension + ".");
+            throw new RuntimeException("Le fichier " + file_database.getName() + " est censé disposer de l'extension " + must_have_extension + ".");
     }
 
     /**
      * Parse et lit dans un fichier json pour fire les événements
      * relatifs à l'égalité entre les deux patterns.
      * @param file_database Le fichier servant de base de données.
+     * @param pattern_to_string La chaîne de caractères passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
      */
-    private void read_json_file(File file_database) {
+    private void read_json_file(File file_database, String pattern_to_string) {
 
     }
 
@@ -166,8 +174,9 @@ public final class StringParser {
      * Parse et lit dans un fichier yml pour fire les événements
      * relatifs à l'égalité entre les deux patterns.
      * @param file_database Le fichier servant de base de données.
+     * @param pattern_to_string La chaîne de caractères passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
      */
-    private void read_yaml_file(File file_database) {
+    private void read_yaml_file(File file_database, String pattern_to_string) {
 
     }
 
@@ -175,9 +184,35 @@ public final class StringParser {
      * Lit simplement dans un fichier texte pour fire les événements
      * relatifs à l'égalité entre les deux patterns.
      * @param file_database Le fichier servant de base de données.
+     * @param pattern_to_string La chaîne de caractères passée en paramètre à la méthode {@link StringParser#submit_pattern(String, boolean)}.
      */
-    private void read_vanilla_file(File file_database) {
-
+    private void read_vanilla_file(File file_database, String pattern_to_string) {
+        if(!file_database.exists())
+            throw new RuntimeException("Le fichier pointé par le chemin suivant \"" + file_database.getAbsolutePath() + "\" n'existe pas. " +
+                    "Créez ce fichier pour faire disparaître cette erreur, ou corrigez votre chemin.");
+        if(file_database.length() == 0L)
+            throw new RuntimeException("Votre fichier est vide. Veuillez le compléter pour faire disparaître cette erreur.");
+        boolean found_at_least_once = false;
+        try(BufferedReader buffer = new BufferedReader(new FileReader(file_database)))
+        {
+            for(String current_line; (current_line = buffer.readLine()) != null;)
+            {
+                if(current_line.equalsIgnoreCase(pattern_to_string)) {
+                    fireEqualityStringEvent(pattern_to_string, current_line);
+                    found_at_least_once = true;
+                }
+            }
+            /* Si le pattern n'a pas matché
+            * au moins une fois, on fire l'event opposé.*/
+            if(!found_at_least_once)
+                fireInequalityStringEvent(pattern_to_string);
+        } catch(IOException ioe_exception)
+        {
+            /*
+            * Si une erreur, autre qu'une FNFE, survient,
+            * on print la stacktrace.*/
+            ioe_exception.printStackTrace();
+        }
     }
 
     /**
@@ -195,22 +230,30 @@ public final class StringParser {
                 throw new RuntimeException("Vous avez modifié l'état du flag file_reading à true, alors que vous " +
                         "n'avez pas utilisé le constructeur adéquat pour utiliser un fichier comme base de données.\n" +
                         "Le processus va être abandonné.");
-            final File file_database = cast_light_database(light_database);
+            final File file_database = cast_light_database_to_file(light_database);
             switch(fileType)
             {
                 case VANILLA:{
                     check_extension_file(file_database, FileType.VANILLA);
-                    read_vanilla_file(file_database);
+                    read_vanilla_file(file_database, pattern_to_string);
                 }break;
                 case JSON:{
                     check_extension_file(file_database, FileType.JSON);
-                    read_json_file(file_database);
+                    read_json_file(file_database, pattern_to_string);
                 } break;
                 case YAML:{
                     check_extension_file(file_database, FileType.YAML);
-                    read_yaml_file(file_database);
+                    read_yaml_file(file_database, pattern_to_string);
                 } break;
             }
+
+        }
+        else
+        {
+            if(fileType != null)
+                throw new RuntimeException("Le type de fichier n'est pas nul, vous avez donc utilisé un constructeur " +
+                        "inadapté à ce que vous souhaitez faire. Merci de vous référer à la documentation de la bibliothèque.");
+
         }
     }
 
@@ -225,7 +268,14 @@ public final class StringParser {
     {
         submit_pattern(pattern_to_string, false);
     }
-    
+
+    /**
+     * Inscrit une instance d'une classe implémentant l'interface {@link StringParserListener}
+     * à la liste des écouteurs d'événements.
+     * @param stringParserListener L'instance implémentant l'interface {@link StringParserListener}.
+     * @see fr.songbird.sdk.stringparser.listener.EqualityStringListener EqualityStringListener
+     * @see fr.songbird.sdk.stringparser.listener.InequalityStringListener InequalityStringListener
+     */
     public final void addListener(StringParserListener stringParserListener)
     {
         listeners_list.add(stringParserListener);

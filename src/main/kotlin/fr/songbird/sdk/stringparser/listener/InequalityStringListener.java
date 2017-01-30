@@ -21,7 +21,15 @@
 package fr.songbird.sdk.stringparser.listener;
 
 /**
- * Interface à implémenter sur les classes à l'écoute d'une (ou plusieurs)
- * instance de la classe {@link fr.songbird.sdk.stringparser.StringParser StringParser}.
+ * Created by anthony on 30/01/17.
  */
-public interface StringParserListener extends EqualityStringListener, InequalityStringListener{}
+@FunctionalInterface
+public interface InequalityStringListener {
+    /**
+     * Méthode appelée sur l'écouteur lorsque
+     * l'entrée soumise n'a pas été retrouvée dans la base
+     * de données.
+     * @param targeted_input L'entrée soumise à une instance de la classe {@link fr.songbird.sdk.stringparser.StringParser StringParser}.
+     */
+    void whenInputIsNotFound(final String targeted_input);
+}

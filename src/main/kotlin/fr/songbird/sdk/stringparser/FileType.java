@@ -60,7 +60,7 @@ public enum FileType {
      * format supportés par le parser.
      * @return Une instance de la classe String contenant l'extension du format.
      */
-    public String getExtension_file()
+    public String get_extension_file()
     {
         return extension_file;
     }
