@@ -143,7 +143,7 @@ public final class StringParser {
      * Si l'erreur survient lors de l'appel de cette méthode, vous l'utilisez très certainement dans un autre contexte
      * que celui pour lequel elle a été créée.
      */
-    private File cast_light_database(Object light_database) {
+    private File cast_light_database_to_file(Object light_database) {
         return (File)light_database;
     }
 
