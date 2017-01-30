@@ -230,22 +230,30 @@ public final class StringParser {
                 throw new RuntimeException("Vous avez modifié l'état du flag file_reading à true, alors que vous " +
                         "n'avez pas utilisé le constructeur adéquat pour utiliser un fichier comme base de données.\n" +
                         "Le processus va être abandonné.");
-            final File file_database = cast_light_database(light_database);
+            final File file_database = cast_light_database_to_file(light_database);
             switch(fileType)
             {
                 case VANILLA:{
                     check_extension_file(file_database, FileType.VANILLA);
-                    read_vanilla_file(file_database);
+                    read_vanilla_file(file_database, pattern_to_string);
                 }break;
                 case JSON:{
                     check_extension_file(file_database, FileType.JSON);
-                    read_json_file(file_database);
+                    read_json_file(file_database, pattern_to_string);
                 } break;
                 case YAML:{
                     check_extension_file(file_database, FileType.YAML);
-                    read_yaml_file(file_database);
+                    read_yaml_file(file_database, pattern_to_string);
                 } break;
             }
+
+        }
+        else
+        {
+            if(fileType != null)
+                throw new RuntimeException("Le type de fichier n'est pas nul, vous avez donc utilisé un constructeur " +
+                        "inadapté à ce que vous souhaitez faire. Merci de vous référer à la documentation de la bibliothèque.");
+
         }
     }
 
