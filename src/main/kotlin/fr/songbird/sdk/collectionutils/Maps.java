@@ -33,6 +33,9 @@ import java.util.Map;
 public final class Maps {
 
 
+    private Maps(){}
+
+
     /**
      * Permet de soumettre tous les couples clés/valeurs à entrer dans une
      * Map en une seule ligne. Exemple:
