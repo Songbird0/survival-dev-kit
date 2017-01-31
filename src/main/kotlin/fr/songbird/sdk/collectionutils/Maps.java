@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * La classe Maps est destinée à fournir des services visant à raccourir
  * le temps d'écriture des opérations à effectuer
- * (e.g. création d'une map, ajout de contenu) sur les objets des classes filles de Map.
+ * (e.g. création d'une map, ajout de contenu) sur les objets des classes filles de {@link Map}.
  * @author songbird
  * @since 31 janv., 2017.
  */
