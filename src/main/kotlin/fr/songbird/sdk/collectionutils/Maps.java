@@ -27,5 +27,5 @@ package fr.songbird.sdk.collectionutils;
  * @author songbird
  * @since 31 janv., 2017.
  */
-public class Maps {
+public final class Maps {
 }
