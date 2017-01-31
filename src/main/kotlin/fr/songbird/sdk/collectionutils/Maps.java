@@ -55,7 +55,7 @@ public final class Maps {
         final Map<K, V> map = new HashMap<>();
         map.put(first_key, first_value);
 
-        for(Entry entry: more_entries)
+        for(Entry<K, V> entry: more_entries)
         {
             final K current_key = entry.getKey();
             final V current_value = entry.getValue();
