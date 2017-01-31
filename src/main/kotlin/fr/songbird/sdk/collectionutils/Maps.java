@@ -33,15 +33,35 @@ import java.util.Map;
 public final class Maps {
 
 
+    /**
+     * Permet de soumettre tous les couples clés/valeurs à entrer dans une
+     * Map en une seule ligne. Exemple:
+     * <pre>
+     *     final Map<String, Integer> foo_map = Maps.asMap(new Entry<>("John", 117), new Entry<>("Emile", 259));
+     *     assert(foo_map.get("John").equals(117));
+     *     assert(foo_map.get("Emile").equals(259));
+     * </pre>
+     *
+     * Au lieu de:
+     * <pre>
+     *     final Map<String, Integer> foo_map = new HashMap<>();
+     *     foo_map.put("John", 117);
+     *     foo_map.put("Emile", 259);
+     *     assert(foo_map.get("John").equals(117));
+     *     assert(foo_map.get("Emile").equals(259));
+     * </pre>
+     * @param first_entry Le premier couple clé/valeur (obligatoire).
+     * @param more_entries D'autres couples clé/valeur (optionnels).
+     * @param <K> Le type de la clé.
+     * @param <V> Le type de la valeur contenue par la clé.
+     * @return Une instance de la classe {@link HashMap} avec les entrées soumises.
+     */
     public static <K, V> Map<K, V> asMap(Entry<K, V> first_entry, Entry<K, V>... more_entries)
     {
         if(first_entry == null)
             throw new RuntimeException("La référence first_entry est nulle.");
         if(more_entries == null)
             throw new RuntimeException("La référence more_entries est nulle.");
-        if(more_entries.length == 0)
-            throw new RuntimeException("Le tableau more_entries est vide. Remplissez-le d'au moins un élément pour faire " +
-                    "disparaître cette erreur.");
 
         // la première clé de la première
         // entrée
