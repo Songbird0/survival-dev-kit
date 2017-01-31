@@ -37,14 +37,14 @@ public final class Maps {
      * Permet de soumettre tous les couples clés/valeurs à entrer dans une
      * Map en une seule ligne. Exemple:
      * <pre>
-     *     final Map<String, Integer> foo_map = Maps.asMap(new Entry<>("John", 117), new Entry<>("Emile", 259));
+     *     final Map{@literal <}String, Integer{@literal >} foo_map = Maps.asMap(new Entry{@literal <}{@literal >}("John", 117), new Entry{@literal <}{@literal >}("Emile", 259));
      *     assert(foo_map.get("John").equals(117));
      *     assert(foo_map.get("Emile").equals(259));
      * </pre>
      *
      * Au lieu de:
      * <pre>
-     *     final Map<String, Integer> foo_map = new HashMap<>();
+     *     final Map{@literal <}String, Integer{@literal >} foo_map = new HashMap{@literal <}{@literal >}();
      *     foo_map.put("John", 117);
      *     foo_map.put("Emile", 259);
      *     assert(foo_map.get("John").equals(117));
