@@ -21,7 +21,12 @@
 package fr.songbird.sdk.collectionutils;
 
 /**
- * Created by anthony on 31/01/17.
+ * La classe Entry permet de récupérer le couple clé/valeur soumis par l'utilisateur
+ * pour ensuite le fournir aux services de la classe {@link Maps} qui peuvent en avoir besoin lors de leurs opérations.
+ * @param <K> Le type de la clé fournie par l'utilisateur.
+ * @param <V> Le type de la valeur fournie par l'utilisateur.
+ * @author songbird
+ * @since 31 janv., 2017.
  */
 public class Entry<K, V> {
 }
