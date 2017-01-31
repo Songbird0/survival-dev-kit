@@ -152,6 +152,28 @@ public class StringParserTest {
         stringParser.submit_pattern("Foo", true);
     }
 
+    @Test
+    public void submit_pattern_with_list_and_file_reading_to_false()
+    {
+        StringParser stringParser = new StringParser(Arrays.asList("foo", "bar", "baz", "bang"));
+        stringParser.addListener(new StringParserListener() {
+            @Override
+            public void whenInputIsFound(String targeted_input, String input_found) {
+                System.out.println("La chaine de caractères '" + targeted_input + "' a été trouvée.");
+            }
+
+            @Override
+            public void whenInputIsNotFound(String targeted_input) {
+                System.out.println("La chaine de caractères '" + targeted_input + "' n'a pas été trouvée.");
+            }
+        });
+        stringParser.submit_pattern("foO");
+        stringParser.submit_pattern("bAr");
+        stringParser.submit_pattern("baZ");
+        stringParser.submit_pattern("baNG");
+        stringParser.submit_pattern("bazzzzzzz");
+    }
+
     /**
      * Procédure de test simple permettant de vérifier
      * rapidement si le service fonctionne correctement.
