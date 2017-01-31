@@ -152,6 +152,12 @@ public class StringParserTest {
         stringParser.submit_pattern("Foo", true);
     }
 
+    /**
+     * Procédure de test simple permettant de vérifier le bon
+     * fonctionnement des de l'envoi des événements lors d'une égalité
+     * ou non. Aucune exception n'est attendue. Si il y en a une, alors il y a forcément une
+     * régression d'une version à l'autre.
+     */
     @Test
     public void submit_pattern_with_list_and_file_reading_to_false()
     {
