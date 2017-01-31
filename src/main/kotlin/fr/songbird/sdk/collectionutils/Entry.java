@@ -29,4 +29,46 @@ package fr.songbird.sdk.collectionutils;
  * @since 31 janv., 2017.
  */
 public class Entry<K, V> {
+
+    /**
+     * La clé.
+     */
+    private final K key;
+    /**
+     * La valeur contenue par la clé.
+     */
+    private final V value;
+
+    /**
+     * Récupère la référence du couple clé/valeur.
+     * @param key La clé de l'entrée.
+     * @param value La valeur de l'entrée.
+     */
+    public Entry(K key, V value)
+    {
+        if(key == null)
+            throw new RuntimeException("La référence key est nulle.");
+        if(value == null)
+            throw new RuntimeException("La référence value est nulle.");
+        this.key = key;
+        this.value = value;
+    }
+
+    /**
+     * Fournit une référence de la clé.
+     * @return La clé.
+     */
+    public K getKey()
+    {
+        return key;
+    }
+
+    /**
+     * Fournit une référence de la valeur que contient la clé.
+     * @return La valeur que contient la clé.
+     */
+    public V getValue()
+    {
+        return value;
+    }
 }
