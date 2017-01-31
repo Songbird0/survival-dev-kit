@@ -20,6 +20,7 @@
 
 package fr.songbird.sdk;
 
+import fr.songbird.sdk.collectionutils.Entry;
 import fr.songbird.sdk.collectionutils.Maps;
 import org.junit.Test;
 
@@ -33,7 +34,7 @@ public class MapsTest {
     @Test
     public void as_map_function_test()
     {
-        final Map foo_map = Maps.<String, Integer>asMap(new Entry("John", 117), new Entry("Emile", 259));
+        final Map<String, Integer> foo_map = Maps.<String, Integer>asMap(new Entry<>("John", 117), new Entry<>("Emile", 259));
         assert(foo_map.get("John").equals(117));
         assert(foo_map.get("Emile").equals(259));
     }
