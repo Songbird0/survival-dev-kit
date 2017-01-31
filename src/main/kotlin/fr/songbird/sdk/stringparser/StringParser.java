@@ -253,8 +253,25 @@ public final class StringParser {
             if(fileType != null)
                 throw new RuntimeException("Le type de fichier n'est pas nul, vous avez donc utilisé un constructeur " +
                         "inadapté à ce que vous souhaitez faire. Merci de vous référer à la documentation de la bibliothèque.");
+            final List<String> list_database = cast_light_database_to_list(light_database);
+            boolean found_at_least_once = false;
 
+            for(final String word: list_database)
+            {
+                if(word.equalsIgnoreCase(pattern_to_string))
+                {
+                    fireEqualityStringEvent(pattern_to_string, word);
+                    found_at_least_once = true;
+                    break;
+                }
+            }
+            if(!found_at_least_once)
+                fireInequalityStringEvent(pattern_to_string);
         }
+    }
+
+    private List<String> cast_light_database_to_list(Object light_database) {
+        return (List<String>)light_database;
     }
 
 
