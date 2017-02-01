@@ -22,7 +22,9 @@ package fr.songbird.sdk;
 
 import fr.songbird.sdk.collectionutils.Entry;
 import fr.songbird.sdk.collectionutils.Maps;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.Map;
 
@@ -31,10 +33,31 @@ import java.util.Map;
  */
 public class MapsTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void as_map_function_test()
     {
-        final Map<String, Integer> foo_map = Maps.<String, Integer>asMap(new Entry<>("John", 117), new Entry<>("Emile", 259));
+        final Map<String, Integer> foo_map = Maps.asMap(new Entry<>("John", 117), new Entry<>("Emile", 259));
+        assert(foo_map.get("John").equals(117));
+        assert(foo_map.get("Emile").equals(259));
+    }
+
+    @Test
+    public void bad_use_of_as_map_function()
+    {
+        final Map foo_map = Maps.asMap(new Entry("John", 117), new Entry("Emile", "not safe"));
+        assert(foo_map.get("John").equals(117));
+        assert(foo_map.get("Emile").equals("not safe"));
+    }
+
+    @Test
+    public void null_varargs_binding()
+    {
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("La référence more_entries est nulle.");
+        final Map<String, Integer> foo_map = Maps.asMap(new Entry<>("John", 117), null);
         assert(foo_map.get("John").equals(117));
         assert(foo_map.get("Emile").equals(259));
     }

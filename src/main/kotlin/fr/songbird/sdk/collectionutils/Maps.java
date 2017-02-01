@@ -59,6 +59,7 @@ public final class Maps {
      * @param <V> Le type de la valeur contenue par la clé.
      * @return Une instance de la classe {@link HashMap} avec les entrées soumises.
      */
+    @SafeVarargs
     public static <K, V> Map<K, V> asMap(Entry<K, V> first_entry, Entry<K, V>... more_entries)
     {
         if(first_entry == null)
