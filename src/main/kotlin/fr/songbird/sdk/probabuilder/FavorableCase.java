@@ -173,7 +173,7 @@ public final class FavorableCase<T> {
      * de la classe {@link FavorableCase}, les préparant ainsi à
      * un tirage au sort iminent. Exemple d'utilisation:
      * <pre>
-     *     final {@literal List<FavorableCase<String>>} favorableCases = as_fav_case_list("foo", 20, "bar", "baz", "bang");
+     *     final{@literal List<FavorableCase<String>>} favorableCases = as_fav_case_list("foo", 20, "bar", "baz", "bang");
      *     assert(favorableCases.size() == 4);
      * </pre>
      * @param your_first_objet La référence de votre objet. (obligatoire)
