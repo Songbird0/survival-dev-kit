@@ -1,4 +1,4 @@
 #!/bin/bash
 
 mvn -v
-mvn clean compile javadoc:javadoc package
+mvn -X -e clean compile javadoc:javadoc package
