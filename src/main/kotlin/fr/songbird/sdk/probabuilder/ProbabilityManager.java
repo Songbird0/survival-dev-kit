@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  * <p>
  * <strong>Note</strong>: Comme expliqué dans la documentation dédié au paramètre type {@code T}, une instance
  * de la classe {@code ProbabilityManager} ne peut gérer qu'un seul type d'objets à la fois.
- * De ce fait, si vous créez une instance de la classe avec pour type {@code T} des objets de la classe String
+ * De ce fait, si vous créez une instance de la classe avec pour type {@code T} des objets de la classe {@link String}
  * le gestionnaire va différencier ces chaînes grâce à leur contenu.
  * Etant un système très générique, cette classe ne vous empêchera pas de le détourner: vous pouvez très bien soumettre
  * plusieurs fois la même chaîne, le service ne plantera pas, mais vous enverra quand même un warning si ce n'était pas voulu.
