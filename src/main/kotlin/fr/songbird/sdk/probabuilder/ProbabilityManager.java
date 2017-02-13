@@ -200,7 +200,7 @@ public final class ProbabilityManager<T> {
             }
         if(favorable_case_sum < potential_case) {
             LOGGER.log(Level.WARNING, "La somme des cas favorables n'est pas égal au nombre de cas potentiels, vous pouvez encore remplir votre liste." +
-                    "\nSomme de tous les cas favorables est égal à "+favorable_case_sum+" alors qu'il y a $potential_case cas potentiels.");
+                    "\nSomme de tous les cas favorables est égal à "+favorable_case_sum+" alors qu'il y a "+potential_case+" cas potentiels.");
             favorable_case_sum_smaller_than_default_potential_case = true;
         }
         /*
