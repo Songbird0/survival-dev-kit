@@ -26,14 +26,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Représente un objet de manière générique.
+ * Représente un item ayant des chances d'être
+ * tiré au sort par le système de probabilité.
  *
  * @author songbird
  * @since 12 janv., 2017
  * @param <T> Le type de l'item. <strong>Note</strong>: L'item doit être du même type que celui passé à une instance
- * de la classe ProbabilityManager.
- *
- * @see ProbabilityManager
+ * de la classe {@link ProbabilityManager}.
  */
 public final class FavorableCase<T> {
     /**
