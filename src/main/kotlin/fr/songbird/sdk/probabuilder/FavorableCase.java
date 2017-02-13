@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  *
  * @author songbird
  * @since 12 janv., 2017
- * @param <T> Le type de l'item. <string>Note</string>: L'item doit être du même type que celui passé à une instance
+ * @param <T> Le type de l'item. <strong>Note</strong>: L'item doit être du même type que celui passé à une instance
  * de la classe ProbabilityManager.
  *
  * @see ProbabilityManager
@@ -63,9 +63,9 @@ public final class FavorableCase<T> {
      * Le système pourra délimiter l'espace entre deux instances, même si elles encapsulent le même contenu. Exemple:<br>
      *
      * <pre>
-     *   final FavorableCase<String> foo = new FavorableCase("my awesome item", "item content", 10);<br>
+     *   final{@literal FavorableCase<String>} foo = new FavorableCase("my awesome item", "item content", 10);<br>
      *
-     *   final FavorableCase<String> bar = new FavorableCase("another item", "item content", 10);<br>
+     *   final{@literal FavorableCase<String>} bar = new FavorableCase("another item", "item content", 10);<br>
      *
      *   final equality_success = foo.equals(bar); // return false<br>
      * </pre>
@@ -174,7 +174,7 @@ public final class FavorableCase<T> {
      * de la classe {@link FavorableCase}, les préparant ainsi à
      * un tirage au sort iminent. Exemple d'utilisation:
      * <pre>
-     *     final List<FavorableCase<String>> favorableCases = as_fav_case_list("foo", 20, "bar", "baz", "bang");
+     *     final {@literal List<FavorableCase<String>>} favorableCases = as_fav_case_list("foo", 20, "bar", "baz", "bang");
      *     assert(favorableCases.size() == 4);
      * </pre>
      * @param your_first_objet La référence de votre objet. (obligatoire)
