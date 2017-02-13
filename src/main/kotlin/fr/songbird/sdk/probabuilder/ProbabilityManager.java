@@ -27,7 +27,8 @@ import java.util.logging.Logger;
 
 /**
  * Le gestionnaire de probabilités permet d'établir le nombre de cas
- * possibles maximum et fournir un service de tirage au sort pour récupérer
+ * possibles maximum et fournir un service de tirage au sort pour récupérer l'instance
+ * servie une fois la procédure terminée.
  *
  * <p>
  * <strong>Note</strong>: Comme expliqué dans la documentation dédié au paramètre type {@code T}, une instance
