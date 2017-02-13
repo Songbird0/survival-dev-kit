@@ -92,6 +92,7 @@ public final class ProbabilityManager<T> {
      * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
      * @throws Exception Si l'un des paramètres passés ne respecte pas les contrats du constructeur.
      * En l'occurrence, seul le paramètre {@code fav_case} pourrait déclencher une erreur.
+     * @see ProbabilityManager#ProbabilityManager(ArrayList, int)
      */
     public ProbabilityManager(ArrayList<FavorableCase<T>> fav_case) throws Exception
     {
