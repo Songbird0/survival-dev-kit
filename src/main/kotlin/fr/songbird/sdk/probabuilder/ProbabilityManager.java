@@ -153,6 +153,11 @@ public final class ProbabilityManager<T> {
         return items_list.get(random.nextInt(100));
     }
 
+    /**
+     * Calcule la somme des cas favorables en additionnant
+     * les cas favorables de chaque item de la liste.
+     * @return La somme des cas favorables.
+     */
     private int get_favorable_case_sum() {
         Integer favorable_case_sum = 0;
         for(FavorableCase<T> favorableCase : fav_case)
