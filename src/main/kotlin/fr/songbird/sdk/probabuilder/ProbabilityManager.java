@@ -223,10 +223,19 @@ public final class ProbabilityManager<T> {
         return items_list;
     }
 
+    /**
+     * Initialise la taille de la liste qui contiendra
+     * les clones des items.
+     * @return Une liste adaptée aux nombres de clones.
+     */
     private ArrayList<FavorableCase<T>> init_items_list_size() {
         return new ArrayList<>(get_items_list_size());
     }
 
+    /**
+     * Renvoie la taille de la liste.
+     * @return La taille de la liste.
+     */
     private int get_items_list_size()
     {
         return this.potential_case;
