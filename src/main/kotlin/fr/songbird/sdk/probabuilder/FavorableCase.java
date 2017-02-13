@@ -106,7 +106,7 @@ public final class FavorableCase<T> {
     }
 
     /**
-     * Renvoi le nombre de cas favorables dédiés à cet item
+     * Renvoie le nombre de cas favorables dédiés à cet item
      * sous sa forme entière.
      * La classe {@code FavorableCase} étant un composant du gestionnaire de probabilités,
      * ce service donne la possibilité au système de questionner ses composants
