@@ -132,9 +132,10 @@ public final class ProbabilityManager<T> {
     }
 
     /**
-     * Tire au sort un pseudo-aléatoire pour sélectionner
-     * un item.
-     * @return L'instance d'un item {@link FavorableCase} tiré au sort.
+     * Tire au sort un item contenu par la liste passée en paramètre
+     * au constructeur.
+     * @return L'instance d'un item wrappé par une instance
+     * de la classe {@link FavorableCase} tirée au sort.
      */
     public FavorableCase<T> fire_random_item() {
         final ArrayList<FavorableCase<T>> items_list = init_items_list_content();
