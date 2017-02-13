@@ -169,6 +169,12 @@ public final class ProbabilityManager<T> {
         return favorable_case_sum;
     }
 
+    /**
+     * Calcule et alloue l'espace dans une liste qui
+     * contiendra tous les clones des items.
+     * @return La liste contenant tous les clones des items, préparée
+     * à être sollicitée par le système de probabilité.
+     */
     private ArrayList<FavorableCase<T>> init_items_list_content() {
         final ArrayList<FavorableCase<T>> items_list = init_items_list_size();
         final int favorable_case_sum = get_favorable_case_sum();
