@@ -62,8 +62,9 @@ public final class ProbabilityManager<T> {
      *                       par le système si le maximum renseigné ne convient pas.
      *                       Vous pouvez utiliser la surcharge de ce constructeur si vous ne souhaitez
      *                       pas utiliser le constructeur par défaut.
-     * @throws Exception Si l'un des paramètres passés ne respecte pas
-     * les contrats du constructeur.
+     * @throws Exception Si le nombre de cas potentiels est nul.
+     * Si le nombre de cas potentiels est négatif.
+     * Si le nombre de cas potentiels est égal à 1.
      * @see ProbabilityManager#ProbabilityManager(ArrayList)
      */
     public ProbabilityManager(ArrayList<FavorableCase<T>> fav_case, int potential_case) throws Exception{
