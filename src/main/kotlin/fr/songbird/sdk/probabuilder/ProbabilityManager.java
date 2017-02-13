@@ -110,10 +110,10 @@ public final class ProbabilityManager<T> {
      * {@code free()} pour libérer une partie de la mémoire utilisée par le système:
      * <br><br>
      * <pre>
-     *     ProbabilityManager<String> proba_sys = null;
+     *    {@literal ProbabilityManager<String>} proba_sys = null;
      *     try
      *     {
-     *         proba_sys = new ProbabilityManager<>(...);
+     *        {@literal proba_sys = new ProbabilityManager<>(...);}
      *     }catch(Exception e)
      *     {
      *         e.printStackTrace();
