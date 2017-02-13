@@ -45,9 +45,22 @@ import java.util.logging.Logger;
  * sinon ça ne compilera pas.
  */
 public final class ProbabilityManager<T> {
+    /**
+     * Le nombre de cas potentiels.
+     */
     private int potential_case;
+    /**
+     * Liste des cas favorables.
+     */
     private final ArrayList<FavorableCase<T>> fav_case;
+    /**
+     * Ce booléen permet de savoir si le nombre de cas favorables
+     * est inférieur au nombre de cas potentiels.
+     */
     private boolean favorable_case_sum_smaller_than_default_potential_case;
+    /**
+     * Le logger de la classe.
+     */
     private static final Logger LOGGER = Logger.getLogger(ProbabilityManager.class.getSimpleName());
 
     /**
