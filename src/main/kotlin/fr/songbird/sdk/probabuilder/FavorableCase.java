@@ -133,6 +133,8 @@ public final class FavorableCase<T> {
     }
 
     /**
+     * Récupère ses caractéristiques et clone
+     * votre instance.
      * @return Une nouvelle instance de la classe
      * FavorableCase qui possède les mêmes
      * caractéristiques que l'instance courante.
