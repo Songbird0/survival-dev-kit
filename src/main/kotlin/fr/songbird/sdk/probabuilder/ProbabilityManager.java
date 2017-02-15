@@ -21,6 +21,7 @@
 package fr.songbird.sdk.probabuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +53,7 @@ public final class ProbabilityManager<T> {
     /**
      * Liste des cas favorables.
      */
-    private final ArrayList<FavorableCase<T>> fav_case;
+    private final List<FavorableCase<T>> fav_case;
     /**
      * Ce booléen permet de savoir si le nombre de cas favorables
      * est inférieur au nombre de cas potentiels.
@@ -78,9 +79,9 @@ public final class ProbabilityManager<T> {
      * @throws Exception Si le nombre de cas potentiels est nul.
      * Si le nombre de cas potentiels est négatif.
      * Si le nombre de cas potentiels est égal à 1.
-     * @see ProbabilityManager#ProbabilityManager(ArrayList)
+     * @see ProbabilityManager#ProbabilityManager(List)
      */
-    public ProbabilityManager(ArrayList<FavorableCase<T>> fav_case, int potential_case) throws Exception{
+    public ProbabilityManager(List<FavorableCase<T>> fav_case, int potential_case) throws Exception{
         assert(fav_case != null) :"fav_case_list est nul.";
         if(fav_case.isEmpty())
             throw new Exception("La liste est vide.");
@@ -105,9 +106,9 @@ public final class ProbabilityManager<T> {
      * @param fav_case La liste des objets sur lequel on pourra tomber lors d'un tirage au sort.
      * @throws Exception Si l'un des paramètres passés ne respecte pas les contrats du constructeur.
      * En l'occurrence, seul le paramètre {@code fav_case} pourrait déclencher une erreur.
-     * @see ProbabilityManager#ProbabilityManager(ArrayList, int)
+     * @see ProbabilityManager#ProbabilityManager(List, int)
      */
-    public ProbabilityManager(ArrayList<FavorableCase<T>> fav_case) throws Exception
+    public ProbabilityManager(List<FavorableCase<T>> fav_case) throws Exception
     {
         this(fav_case, 100);
     }
@@ -151,7 +152,7 @@ public final class ProbabilityManager<T> {
      * de la classe {@link FavorableCase} tirée au sort.
      */
     public FavorableCase<T> fire_random_item() {
-        final ArrayList<FavorableCase<T>> items_list = init_items_list_content();
+        final List<FavorableCase<T>> items_list = init_items_list_content();
         final Random random = new Random();
         if(favorable_case_sum_smaller_than_default_potential_case)
         {
@@ -188,8 +189,8 @@ public final class ProbabilityManager<T> {
      * @return La liste contenant tous les clones des items, préparée
      * à être sollicitée par le système de probabilité.
      */
-    private ArrayList<FavorableCase<T>> init_items_list_content() {
-        final ArrayList<FavorableCase<T>> items_list = init_items_list_size();
+    private List<FavorableCase<T>> init_items_list_content() {
+        final List<FavorableCase<T>> items_list = init_items_list_size();
         final int favorable_case_sum = get_favorable_case_sum();
         if(favorable_case_sum > potential_case)
             try {
@@ -241,7 +242,7 @@ public final class ProbabilityManager<T> {
      * les clones des items.
      * @return Une liste adaptée aux nombres de clones.
      */
-    private ArrayList<FavorableCase<T>> init_items_list_size() {
+    private List<FavorableCase<T>> init_items_list_size() {
         return new ArrayList<>(get_items_list_size());
     }
 
