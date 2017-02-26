@@ -38,10 +38,10 @@ le maven central repository, vous n'avez donc aucune installation manuelle
 à effectuer.
 
 Lorsque vous vous trouvez dans le répertoire racine du projet, 
-lancez simplement le script `bash.sh`.
+lancez simplement le script `build.sh`.
 
 ```bash
-$ sh bash.sh
+$ sh build.sh
 ```
 
 ## Technologie
