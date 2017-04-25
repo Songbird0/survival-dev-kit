@@ -17,44 +17,44 @@
  *
  *     If you need more information, feel free to contact me at chaacygg[at]gmail[dot]com.
  */
-
 package fr.songbird.sdk;
 
 import fr.songbird.sdk.stringparser.FileType;
 import fr.songbird.sdk.stringparser.StringParser;
 import fr.songbird.sdk.stringparser.listener.StringParserListener;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
+
 /**
  * Classe dédiée aux tests de la classe {@link StringParser}.
  */
 public class StringParserTest {
 
-
-    /**
-     * On attend une erreur car aucune instance de la
-     * classe {@link java.util.List List} ou de ses filles
-     *  n'a été passée en paramètre.
-     */
-    @Test(expected = RuntimeException.class)
-    public void null_list()
-    {
-        new StringParser(null);
-    }
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     /**
      * On attend une erreur car la liste passée en
      * paramètre ne contient aucun élément.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void empty_list()
     {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("La liste passée en paramètre est vide.");
         new StringParser(new ArrayList<>());
     }
 
@@ -62,9 +62,11 @@ public class StringParserTest {
      * On attend une erreur car aucune instance de
      * l'enum {@link FileType} n'a été passée en paramètre.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void file_type_is_null()
     {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("Le type de fichier passé en paramètre est nul.");
         new StringParser(Paths.get("my", "awesome", "path"), null);
     }
 
@@ -72,9 +74,11 @@ public class StringParserTest {
      * On attend une erreur car aucune instance de
      * la classe {@link java.nio.file.Path Path} n'a été passée en paramètre.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void path_to_database_is_null()
     {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("Le chemin passé en paramètre est nul.");
         new StringParser(null, FileType.JSON);
     }
 
@@ -145,9 +149,13 @@ public class StringParserTest {
     /**
      * On attend une erreur car le constructeur utilisé n'est pas le bon.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void submit_pattern_with_list_and_file_reading_to_true()
     {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("Vous avez modifié l'état du flag file_reading à true, alors que vous " +
+                "n'avez pas utilisé le constructeur adéquat pour utiliser un fichier comme base de données.\n" +
+                "Le processus va être abandonné.");
         StringParser stringParser = new StringParser(Arrays.asList("Foo", "Bar"));
         stringParser.submit_pattern("Foo", true);
     }
@@ -190,7 +198,7 @@ public class StringParserTest {
     public void submit_pattern_with_vanilla_file_and_file_reading_to_true()
     {
         final String USER_DIRECTORY = System.getProperty("user.dir");
-        StringParser stringParser = new StringParser(Paths.get(USER_DIRECTORY, "src", "test", "vanilla_file.txt"), FileType.VANILLA);
+        StringParser stringParser = new StringParser(Paths.get(USER_DIRECTORY, "src", "test", "resources", "vanilla_file.txt"), FileType.VANILLA);
         stringParser.addListener(new StringParserListener() {
             @Override
             public void whenInputIsFound(String targeted_input, String input_found) {
@@ -206,6 +214,57 @@ public class StringParserTest {
         stringParser.submit_pattern("baR", true);
         stringParser.submit_pattern("zzzzzz", true); //ne sera pas trouvé
         stringParser.submit_pattern("bAnG", true);
+    }
+
+    @Test
+    public void read_input_stream_0(){
+        final String stream_content = StringParser.read_input_stream(StringParserTest.class.getResourceAsStream("../../../vanilla_file.txt"), true);
+        assertThat(stream_content, is(equalTo("foo\n" +
+                "bar\n" +
+                "bazzz\n" +
+                "bang\n")));
+    }
+
+    @Test
+    public void read_input_stream_1(){
+        final String stream_content = StringParser.read_input_stream(StringParserTest.class.getResourceAsStream("../../../vanilla_file.txt"));
+        assertThat(stream_content, is(equalTo("foobarbazzzbang")));
+    }
+
+    @Test
+    public void read_input_stream_2(){
+        final File f = Paths.get(System.getProperty("user.dir"), "src","test", "resources", "vanilla_file.txt").toFile();
+        final String file_content = StringParser.read_input_stream(f, true);
+        assertThat(file_content, is(equalTo("foo\n" +
+                "bar\n" +
+                "bazzz\n" +
+                "bang\n")));
+    }
+    @Test
+    public void read_input_stream_3() {
+        final File f = Paths.get(System.getProperty("user.dir"), "src","test", "resources", "vanilla_file.txt").toFile();
+        final String file_content = StringParser.read_input_stream(f);
+        assertThat(file_content, is(equalTo("foobarbazzzbang")));
+    }
+    @Test
+    public void read_input_stream_4(){
+        final StringParser parser = new StringParser(StringParserTest.class.getResourceAsStream("../../../vanilla_file.txt"));
+        parser.addListener(new StringParserListener() {
+            @Override
+            public void whenInputIsFound(String targeted_input, String input_found) {
+                System.out.printf("%s se trouve dans la bdd!\n", StringEscapeUtils.escapeJava(targeted_input));
+            }
+
+            @Override
+            public void whenInputIsNotFound(String targeted_input) {
+                System.out.printf("%s ne se trouve pas dans la bdd!\n", StringEscapeUtils.escapeJava(targeted_input));
+            }
+        });
+        parser.submit_pattern("foO");
+        parser.submit_pattern("Salut fOo");
+        parser.submit_pattern("baR");
+        parser.submit_pattern("bazzz");
+        parser.submit_pattern("unfou");
     }
 
 }
