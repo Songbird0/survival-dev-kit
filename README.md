@@ -44,36 +44,7 @@ lancez simplement le script `build.sh`.
 $ sh build.sh
 ```
 
-## Technologie
-
-Une partie de cette bibliothèque a été écrite en Kotlin et requiert 
-donc le runtime du langage pour fonctionner si vous souhaitez utiliser 
-les utilitaires concernés. 
-Maven se chargera toutefois d'installer le nécessaire pour vous, ne vous restant 
-plus qu'à aller récupérer l'archive du runtime si vous souhaitez déployer 
-votre projet dépendant.
-
-### Dokka
-
-Le moteur de génération de documentation de kotlin est également intégré 
-au pom et ne demande aucune manipulation de votre part. 
-Toutefois, gardez en tête que le moteur est moyennement compatible avec la 
-syntaxe de la javadoc traditionnelle. L'utiliser pour générer 
-la documentation de SDK posera peut-être quelques problèmes d'affichage. 
-Si vous souhaitez malgré tout l'utiliser, vous pouvez utiliser ces trois goals:
-
-- `dokka:dokka`
-  - Génère les morceaux de la documentation écrits en Markdown.
-- `dokka:javadoc`
-  - Génère les morceaux de la documentation écrits avec la syntaxe traditionnelle.
-- `dokka:javadocJar`
-  - Fourni une archive jar contenant les fichiers `.html` de la documentation. (au format traditionnel)
-  
-Je vous recommande toutefois d'utiliser le script `build.sh` si vous 
-souhaitez générer la documentation. (le script se chargera de lancer 
-le goal `javadoc:javadoc`)
-
-## Contribution
+## Contribution
 
 Pour contribuer à SDK, vous devez remplir ces quatre conditions:
 
