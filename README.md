@@ -43,20 +43,3 @@ lancez simplement le script `build.sh`.
 ```bash
 $ sh build.sh
 ```
-
-## Contribution
-
-Pour contribuer à SDK, vous devez remplir ces quatre conditions:
-
-- Vos travaux doivent **toujours** être effectués sur la branche 
-WIP. Pas une branche que vous aurez spécifiquement créée, pas master, 
-seulement WIP.
-- Vos travaux doivent **au moins** disposer d'une version fonctionnelle 
-qui puisse être sollicitée sans problèmes. (Exemple: Vous pouvez 
-push un utilitaire partiellement développé, mais la partie déjà entamée 
-doit être irréprochable.)
-- Quel que soit l'état dans lequel se trouve vos travaux, vous devez 
-**toujours** fournir une classe dédiée aux tests unitaires de *chaque classe utilitaire*.
-- Vous acceptez que vos travaux puissent être modifiés et/ou supprimés 
-si ils sont dans un état "non-fini". (e.g. Utilitaire partiellement développé 
-mais jamais terminé)
