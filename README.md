@@ -7,18 +7,7 @@ leur intégration si l'on souhaite s'en inspirer.
 
 ## Utilisation
 
-Si vous souhaitez utiliser cette bibliothèque, notez toutefois qu'elle 
-n'est pas très mature en l'état et pourrait donc aussi proposer des utilitaires 
-qui ne sont pas encore opérationnels. 
-Si vous voulez éviter d'utiliser une version instable de SDK 
-ne téléchargez pas les versions taggées *snapshot*.
-
-### Utilisation des snapshots
-
-Vous souhaitez quand même utiliser une version snapshot ? 
-Consultez alors les commits relatifs à votre version pour 
-prendre connaissance des outils qui ne fonctionnent pas encore mais figurent 
-dans votre archive avant de l'utiliser dans votre projet.
+Cette bibliothèque est un rassemblement d'outils que j'utilise, et ne sont certainement pas parfaits. Consultez les patchs avant de l'utiliser dans votre projet (pour savoir ce qui pourrait prendre feu, par exemple).
 
 ## Installation
 
